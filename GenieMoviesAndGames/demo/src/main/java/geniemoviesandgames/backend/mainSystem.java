@@ -2,6 +2,7 @@ package geniemoviesandgames.backend;
 
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class mainSystem {
     private static ArrayList<item> listOfItems = new ArrayList<>();
     private static ArrayList<account> listOfAccounts = new ArrayList<>();
     private final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
-    private final static String CustomerFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
+    private final static String accountFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
 
     public static ArrayList<item> getListOfItems() {
         return listOfItems;
@@ -28,10 +29,11 @@ public class mainSystem {
     public static ArrayList<account> getListOfAccounts() {
         return listOfAccounts;
     }
-
+    
     public static void addListOfItems(item itemIn){
         listOfItems.add(itemIn);
     }
+
     public static void addlistOfAccounts(account accin){
         listOfAccounts.add(accin);
     }
@@ -118,7 +120,7 @@ public class mainSystem {
         FileReader customerFile;
         BufferedReader br1;
         try {
-            customerFile = new FileReader(CustomerFilePath);
+            customerFile = new FileReader(accountFilePath);
             br1 = new BufferedReader(customerFile);
             String line;
             String[] fields;
@@ -195,10 +197,14 @@ public class mainSystem {
         String phrase;
         String accType = "Guest";
         String itemrentSize;
+        String ItemList ="";
          if(accIn.getCustomerListofRentals()== null){
             itemrentSize="0";
         } else{
             itemrentSize=Integer.toString(accIn.getCustomerListofRentals().size());
+            for(int i=0;i<accIn.getCustomerListofRentals().size();i++){
+                ItemList = ItemList+"/n"+accIn.getCustomerListofRentals().get(i);
+            }
         }
         if (accIn instanceof guest) {
             accType = "Guest";
@@ -209,9 +215,9 @@ public class mainSystem {
         }
         phrase = accIn.getCustomerID() + "," + accIn.getCustomerFullname() + "," + accIn.getCustomerAddress() + ","
                 + Integer.toString(accIn.getCustomerPhone()) + "," + itemrentSize + ","
-                + accType + "," + accIn.getCustomerUsername() + "," + accIn.getCustomerPassWord();
+                + accType + "," + accIn.getCustomerUsername() + "," + accIn.getCustomerPassWord()+ItemList;
         try {
-            FileWriter fw = new FileWriter(CustomerFilePath,true);
+            FileWriter fw = new FileWriter(accountFilePath,true);
             fw.write("\n" +phrase);
             fw.close();
         } catch (Exception e) {
@@ -219,4 +225,51 @@ public class mainSystem {
         }
     }
 
+    public static void editItemTextFile(String wordToReplace,String wordReplacing){
+        try {
+            File fileToEdit = new File(itemFilePath);
+            BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
+
+            String line = "", oldText = "";
+            while((line = reader.readLine()) != null) {
+                oldText += line + "\n";
+            }
+            reader.close();
+
+            // replace old text with new text
+            String newContent = oldText.replaceAll(wordToReplace, wordReplacing);
+
+            // write new content to file
+            FileWriter writer = new FileWriter(fileToEdit);
+            writer.write(newContent);
+            writer.close();
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    };
+
+    public static void editAccountTextFile(String wordToReplace,String wordReplacing){
+        try {
+            File fileToEdit = new File(accountFilePath);
+            BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
+
+            String line = "", oldText = "";
+            while((line = reader.readLine()) != null) {
+                oldText += line + "\n";
+            }
+            reader.close();
+
+            // replace old text with new text
+            String newContent = oldText.replaceAll(wordToReplace, wordReplacing);
+
+            // write new content to file
+            FileWriter writer = new FileWriter(fileToEdit);
+            writer.write(newContent);
+            writer.close();
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
