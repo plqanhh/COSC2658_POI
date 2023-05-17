@@ -11,7 +11,7 @@ import java.io.IOException;
 import geniemoviesandgames.backend.mainSystem;
 
 /**
- * JavaFX App
+ * JavaFX App - update comments
  */
 public class App extends Application {
 
