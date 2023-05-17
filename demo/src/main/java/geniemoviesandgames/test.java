@@ -1,27 +1,21 @@
 package geniemoviesandgames;
 
-import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class test {
+    protected enum Genre {
+        Action, Horror, Drama, Comedy
+    };
     public static void main(String[] args){
-        String phrase;
-        String LoanType = "2-day";
-        String itemType = "Game";
-        String fileToEdit = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/test.txt";
-        ArrayList<Integer>numList = new ArrayList<>(null);
-
-        phrase = "C123" + "," + "hello" + "," + itemType + "," + LoanType + ","
-                + "3" + "," + "4";
-        try {
-            FileWriter fw = new FileWriter(fileToEdit,true);
-        
-            fw.write("\n"+phrase);
-            fw.close();
-        } catch (Exception e) {
-            // TODO: handle exception
+        ArrayList<Integer> alist = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            alist.add(i);
         }
-        System.out.println(numList);
-
+        System.out.println(alist);
+        int a = alist.indexOf(5);
+        alist.remove(5);
+        System.out.println(alist);
+        alist.add(a, 10);
+        System.out.println(alist);
     }
 }

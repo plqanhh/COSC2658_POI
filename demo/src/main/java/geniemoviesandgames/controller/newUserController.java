@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import geniemoviesandgames.Switchingscence;
 import geniemoviesandgames.backend.mainSystem;
-import geniemoviesandgames.model.guest;
+import geniemoviesandgames.model.account.guestAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -26,7 +26,7 @@ public class newUserController extends Switchingscence {
             warningText.setText("Please enter the missing infomation!");
         } else {
             String makeID = "C" + String.format("%03d", mainSystem.getListOfAccounts().size());
-            guest g2 = new guest(makeID, nameTextfield.getText(), addressTextfield.getText(),
+            guestAccount g2 = new guestAccount(makeID, nameTextfield.getText(), addressTextfield.getText(),
                     Integer.parseInt(phoneTextfield.getText()), null, registerController.getUsername(),
                     registerController.getPassword());
             mainSystem.addlistOfAccounts(g2);

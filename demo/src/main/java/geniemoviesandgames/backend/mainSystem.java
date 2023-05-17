@@ -1,26 +1,31 @@
 package geniemoviesandgames.backend;
 
 import java.util.ArrayList;
+
+import geniemoviesandgames.model.account.VipAccount;
+import geniemoviesandgames.model.account.account;
+import geniemoviesandgames.model.account.guestAccount;
+import geniemoviesandgames.model.account.regularAccount;
+import geniemoviesandgames.model.item.itemDVD;
+import geniemoviesandgames.model.item.itemGame;
+import geniemoviesandgames.model.item.item;
+import geniemoviesandgames.model.item.itemMovies;
+import geniemoviesandgames.model.item.item.Genre;
+import geniemoviesandgames.model.item.item.LoanType;
+import geniemoviesandgames.model.item.item.Media_Formats;
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import geniemoviesandgames.model.DVD;
-import geniemoviesandgames.model.Vip;
-import geniemoviesandgames.model.account;
-import geniemoviesandgames.model.game;
-import geniemoviesandgames.model.guest;
-import geniemoviesandgames.model.item;
-import geniemoviesandgames.model.movies;
-import geniemoviesandgames.model.regular;
-
 public class mainSystem {
-    private static ArrayList<item> listOfItems = new ArrayList<>();
-    private static ArrayList<account> listOfAccounts = new ArrayList<>();
-    private final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
-    private final static String accountFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
+    protected static ArrayList<item> listOfItems = new ArrayList<>();
+    protected static ArrayList<account> listOfAccounts = new ArrayList<>();
+    protected final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
+    protected final static String AccountFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
 
     public static ArrayList<item> getListOfItems() {
         return listOfItems;
@@ -29,12 +34,12 @@ public class mainSystem {
     public static ArrayList<account> getListOfAccounts() {
         return listOfAccounts;
     }
-    
-    public static void addListOfItems(item itemIn){
+
+    public static void addListOfItems(item itemIn) {
         listOfItems.add(itemIn);
     }
 
-    public static void addlistOfAccounts(account accin){
+    public static void addlistOfAccounts(account accin) {
         listOfAccounts.add(accin);
     }
 
@@ -49,7 +54,25 @@ public class mainSystem {
 
     public static account searchAccountByID(String id) {
         for (account a : listOfAccounts) {
-            if ((a.getCustomerID()).equals(id)) {
+            if ((a.getAccountID()).equals(id)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public static item searchItemByName(String name) {
+        for (item i : listOfItems) {
+            if ((i.getItemTitle()).equals(name)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public static account searchAccountByName(String name) {
+        for (account a : listOfAccounts) {
+            if ((a.getAccountFullname()).equals(name)) {
                 return a;
             }
         }
@@ -58,7 +81,7 @@ public class mainSystem {
 
     public static Boolean acountLogin(String username, String password) {
         for (account a : listOfAccounts) {
-            if ((a.getCustomerUsername()).equals(username) && a.getCustomerPassWord().equals(password)) {
+            if ((a.getAccountUsername()).equals(username) && a.getAccountPassword().equals(password)) {
                 return true;
             }
         }
@@ -72,40 +95,38 @@ public class mainSystem {
             ItemFiles = new FileReader(itemFilePath);
             br = new BufferedReader(ItemFiles);
             String line;
-            Boolean Item2Day;
             String[] fields;
-            String itemID, itemTitle, itemType, itemLoanType;
-            double itemPrice;
+            String itemID, itemTitle, itemType;
+            double itemFee;
             int itemCopies;
+            Media_Formats itemMedia;
+            LoanType itemLoanType;
+            Genre itemGenre;
             while ((line = br.readLine()) != null) {
 
                 fields = line.split(",");
+                //String ID, String title, Media media, LoanType loanType, int stocks, Double fees, Genre genre
                 itemID = fields[0];
                 itemTitle = fields[1];
-                itemType = fields[2];
-                itemLoanType = fields[3];
+                itemMedia = Media_Formats.valueOf(fields[2]);
+                itemLoanType = LoanType.valueOf(fields[3]);
                 itemCopies = Integer.parseInt(fields[4]);
-                itemPrice = Double.parseDouble(fields[5]);
+                itemFee = Double.parseDouble(fields[5]);
+    
 
-                if (itemLoanType == "1-week") {
-                    Item2Day = false;
-                } else {
-                    Item2Day = true;
-                }
-
-                switch (itemType) {
+                switch (itemMedia.toString()) {
                     case "Game":
-                        game g1 = new game(itemID, itemTitle, Item2Day, itemCopies, itemPrice);
+                        itemGame g1 = new itemGame(itemID, itemTitle, itemMedia, itemLoanType, itemCopies, itemFee, null);
                         listOfItems.add(g1);
                         break;
                     case "Record":
-                        String ItemGenre = fields[6];
-                        movies m1 = new movies(itemID, itemTitle, Item2Day, itemCopies, itemPrice, ItemGenre);
+                        itemGenre = Genre.valueOf(fields[6]);
+                        itemMovies m1 = new itemMovies(itemID, itemTitle, itemMedia, itemLoanType, itemCopies, itemFee, itemGenre);
                         listOfItems.add(m1);
                         break;
                     case "DVD":
-                        ItemGenre = fields[6];
-                        DVD d1 = new DVD(itemID, itemTitle, Item2Day, itemCopies, itemPrice, ItemGenre);
+                        itemGenre = Genre.valueOf(fields[6]);
+                        itemDVD d1 = new itemDVD(itemID, itemTitle, itemMedia, itemLoanType, itemCopies, itemFee, itemGenre);
                         listOfItems.add(d1);
                         break;
                 }
@@ -120,7 +141,7 @@ public class mainSystem {
         FileReader customerFile;
         BufferedReader br1;
         try {
-            customerFile = new FileReader(accountFilePath);
+            customerFile = new FileReader(AccountFilePath);
             br1 = new BufferedReader(customerFile);
             String line;
             String[] fields;
@@ -138,23 +159,23 @@ public class mainSystem {
                     customerType = fields[5];
                     username = fields[6];
                     password = fields[7];
-                    if(fields[4] =="0"){
-                        itemOwn=null;
+                    if (fields[4] == "0") {
+                        itemOwn = null;
                     }
                 } else {
                     itemOwn.add(searchItemByID(id));
                 }
                 switch (customerType) {
                     case "VIP":
-                        Vip v1 = new Vip(id, name, address, phone, itemOwn, username, password);
+                        VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn, username, password);
                         listOfAccounts.add(v1);
                         break;
                     case "Guest":
-                        guest g1 = new guest(id, name, address, phone, itemOwn, username, password);
+                        guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn, username, password);
                         listOfAccounts.add(g1);
                         break;
                     case "Regular":
-                        regular r1 = new regular(id, name, address, phone, itemOwn, username, password);
+                        regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn, username, password);
                         listOfAccounts.add(r1);
                         break;
                 }
@@ -164,25 +185,47 @@ public class mainSystem {
         }
     }
 
-    public static void addItemToTextFile(item itemIn) {
+    public static String itemToString(item itemIn) {
         String phrase;
-        String LoanType;
-        String itemType;
-        if (itemIn.isItem2DayLoan() == true) {
-            LoanType = "2-day";
-        } else {
-            LoanType = "1-week";
+        String itemGenre = "";
+        if(itemIn.getItemGenre()!=null){
+            itemGenre = itemIn.getItemGenre().toString();
         }
-        if (itemIn instanceof game) {
-            itemType = "Game";
-        } else if (itemIn instanceof DVD) {
-            itemType = "DVD";
-        } else {
-            itemType = "Record";
-        }
+        phrase = itemIn.getItemID() + "," + itemIn.getItemTitle() + "," + itemIn.getItemMedia() + "," + itemIn.getLoanType() + ","
+                + Integer.toString(itemIn.getItemStock()) + "," + Double.toString(itemIn.getItemFees())+","+itemGenre;
 
-        phrase = itemIn.getItemID() + "," + itemIn.getItemTitle() + "," + itemType + "," + LoanType + ","
-                + Integer.toString(itemIn.getItemCopies()) + "," + Double.toString(itemIn.getItemFees());
+        return phrase;
+    }
+
+    public static String accountToString(account accIn) {
+        String phrase;
+        String accType = "Guest";
+        String itemrentSize;
+        String itemOwn = "";
+        if (accIn.getAccountListOfRentals() == null) {
+            itemrentSize = "0";
+        } else {
+            itemrentSize = Integer.toString(accIn.getAccountListOfRentals().size());
+            for (int i = 0; i < accIn.getAccountListOfRentals().size(); i++) {
+                itemOwn = "\n" + accIn.getAccountListOfRentals().get(0).getItemID();
+            }
+        }
+        if (accIn instanceof guestAccount) {
+            accType = "Guest";
+        } else if (accIn instanceof regularAccount) {
+            accType = "Regular";
+        } else if (accIn instanceof VipAccount) {
+            accType = "VIP";
+        }
+        phrase = accIn.getAccountID() + "," + accIn.getAccountFullname() + "," + accIn.getAccountAddress() + ","
+                + Integer.toString(accIn.getAccountPhone()) + "," + itemrentSize + ","
+                + accType + "," + accIn.getAccountUsername() + "," + accIn.getAccountPassword() + itemOwn;
+
+        return phrase;
+    }
+
+    public static void addItemToTextFile(item itemIn) {
+        String phrase = itemToString(itemIn);
         try {
             FileWriter fw = new FileWriter(itemFilePath, true);
             fw.write("\n" + phrase);
@@ -194,81 +237,108 @@ public class mainSystem {
     }
 
     public static void addaccountToTextFile(account accIn) {
-        String phrase;
-        String accType = "Guest";
-        String itemrentSize;
-        String ItemList ="";
-         if(accIn.getCustomerListofRentals()== null){
-            itemrentSize="0";
-        } else{
-            itemrentSize=Integer.toString(accIn.getCustomerListofRentals().size());
-            for(int i=0;i<accIn.getCustomerListofRentals().size();i++){
-                ItemList = ItemList+"/n"+accIn.getCustomerListofRentals().get(i);
-            }
-        }
-        if (accIn instanceof guest) {
-            accType = "Guest";
-        } else if (accIn instanceof regular) {
-            accType = "Regular";
-        } else if (accIn instanceof Vip) {
-            accType = "VIP";
-        }
-        phrase = accIn.getCustomerID() + "," + accIn.getCustomerFullname() + "," + accIn.getCustomerAddress() + ","
-                + Integer.toString(accIn.getCustomerPhone()) + "," + itemrentSize + ","
-                + accType + "," + accIn.getCustomerUsername() + "," + accIn.getCustomerPassWord()+ItemList;
+        String phrase = accountToString(accIn);
+
         try {
-            FileWriter fw = new FileWriter(accountFilePath,true);
-            fw.write("\n" +phrase);
+            FileWriter fw = new FileWriter(AccountFilePath, true);
+            fw.write("\n" + phrase);
             fw.close();
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
 
-    public static void editItemTextFile(String wordToReplace,String wordReplacing){
+    public static void editAccountTextFile(String wordBeingReplaced, String wordReplacing) {
+        try {
+            File fileToEdit = new File(AccountFilePath);
+            BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
+
+            String line = "", oldText = "";
+            while ((line = reader.readLine()) != null) {
+                oldText += line + "\n";
+            }
+            reader.close();
+            String newContent = oldText.replaceAll(wordBeingReplaced, wordReplacing);
+
+            FileWriter writer = new FileWriter(fileToEdit, false);
+            writer.write(newContent);
+            writer.close();
+
+            System.out.println("File edited successfully!");
+        } catch (IOException e) {
+            System.out.println("An error occurred while editing the file.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void editItemTextFile(String wordBeingReplaced, String wordReplacing) {
+        try {
+            File fileToEdit = new File(AccountFilePath);
+            BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
+
+            String line = "", oldText = "";
+            while ((line = reader.readLine()) != null) {
+                oldText += line + "\n";
+            }
+            reader.close();
+
+            String newContent = oldText.replaceAll(wordBeingReplaced, wordReplacing);
+
+            FileWriter writer = new FileWriter(fileToEdit, false);
+            writer.write(newContent);
+            writer.close();
+
+            System.out.println("File edited successfully!");
+        } catch (IOException e) {
+            System.out.println("An error occurred while editing the file.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeItemFromTextFile(item itemIn) {
+        String phrase = itemToString(itemIn);
         try {
             File fileToEdit = new File(itemFilePath);
             BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
 
             String line = "", oldText = "";
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 oldText += line + "\n";
             }
             reader.close();
+            String newContent = oldText.replaceAll(phrase, "");
 
-            // replace old text with new text
-            String newContent = oldText.replaceAll(wordToReplace, wordReplacing);
-
-            // write new content to file
-            FileWriter writer = new FileWriter(fileToEdit);
+            FileWriter writer = new FileWriter(fileToEdit, false);
             writer.write(newContent);
             writer.close();
 
-        } catch(IOException e) {
+            System.out.println("File edited successfully!");
+        } catch (IOException e) {
+            System.out.println("An error occurred while editing the file.");
             e.printStackTrace();
         }
-    };
+    }
 
-    public static void editAccountTextFile(String wordToReplace,String wordReplacing){
+    public static void removeAccountFromTextFile(account accIn) {
+        String phrase = accountToString(accIn);
         try {
-            File fileToEdit = new File(accountFilePath);
+            File fileToEdit = new File(accountToString(accIn));
             BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
 
             String line = "", oldText = "";
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 oldText += line + "\n";
             }
             reader.close();
+            String newContent = oldText.replaceAll(phrase, "");
 
-            // replace old text with new text
-            String newContent = oldText.replaceAll(wordToReplace, wordReplacing);
-
-            // write new content to file
-            FileWriter writer = new FileWriter(fileToEdit);
+            FileWriter writer = new FileWriter(fileToEdit, false);
             writer.write(newContent);
             writer.close();
 
-        } catch(IOException e) {
+            System.out.println("File edited successfully!");
+        } catch (IOException e) {
+            System.out.println("An error occurred while editing the file.");
             e.printStackTrace();
         }
     }
