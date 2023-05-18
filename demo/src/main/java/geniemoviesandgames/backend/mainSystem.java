@@ -101,7 +101,7 @@ public class mainSystem {
         }
     }
 
-    public static void readCustomersFromFile() {
+    public static void readAccountsFromFile() {
         FileReader customerFile;
         BufferedReader br1;
         try {
@@ -148,7 +148,9 @@ public class mainSystem {
             e.printStackTrace();
         }
     }
+    
+    public static void saveItemsToFile(){}
 
-
+    public static void saveAccountsToFile(){}
 
 }

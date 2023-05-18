@@ -34,10 +34,17 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("screen_design/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
+    @Override
+    public void stop() throws Exception {
+        // Perform any necessary cleanup or save operations here
+        mainSystem.saveItemsToFile();
+        mainSystem.saveAccountsToFile();
+        System.out.println("Application stopped");
+    }
 
     public static void main(String[] args) {
         mainSystem.readItemsFromFile();
-        mainSystem.readCustomersFromFile();
+        mainSystem.readAccountsFromFile();
         Application.launch(args);
     }
 

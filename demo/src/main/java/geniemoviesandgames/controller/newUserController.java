@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import geniemoviesandgames.Switchingscence;
 import geniemoviesandgames.backend.mainSystem;
-import geniemoviesandgames.backend.modifyTextfile;
 import geniemoviesandgames.model.account.guestAccount;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -31,7 +30,6 @@ public class newUserController extends Switchingscence {
                     Integer.parseInt(phoneTextfield.getText()), null, registerController.getUsername(),
                     registerController.getPassword());
             mainSystem.addlistOfAccounts(g2);
-            modifyTextfile.addaccountToTextFile(g2);
             switchToMenu();
         }
     }
