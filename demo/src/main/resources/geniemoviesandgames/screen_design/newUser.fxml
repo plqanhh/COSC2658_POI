@@ -7,21 +7,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="geniemoviesandgames.controller.newUserController" >
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="geniemoviesandgames.controller.newUserController">
    <children>
-      <Pane prefHeight="288.0" prefWidth="600.0">
+      <Pane prefHeight="331.0" prefWidth="600.0">
          <children>
             <Text layoutX="237.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional info">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text layoutX="50.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+            <Text layoutX="50.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text layoutX="50.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number" wrappingWidth="97.8955078125">
+            <Text layoutX="45.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number" wrappingWidth="97.8955078125">
                <font>
                   <Font size="15.0" />
                </font>
@@ -36,17 +36,12 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="nameTextfield" layoutX="340.0" layoutY="103.0" prefHeight="38.0" prefWidth="246.0" />
-            <TextField fx:id="phoneTextfield" layoutX="340.0" layoutY="157.0" prefHeight="38.0" prefWidth="246.0" />
-            <TextField fx:id="addressTextfield" layoutX="340.0" layoutY="211.0" prefHeight="38.0" prefWidth="246.0" />
-            <Text fx:id="warningText" layoutX="340.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
+            <TextField fx:id="nameTextfield" layoutX="50.0" layoutY="99.0" prefHeight="38.0" prefWidth="511.0" />
+            <TextField fx:id="phoneTextfield" layoutX="50.0" layoutY="174.0" prefHeight="38.0" prefWidth="511.0" />
+            <TextField fx:id="addressTextfield" layoutX="50.0" layoutY="245.0" prefHeight="38.0" prefWidth="511.0" />
          </children>
       </Pane>
-      <Pane prefHeight="111.0" prefWidth="600.0">
+      <Pane prefHeight="185.0" prefWidth="600.0">
          <children>
             <Button layoutX="448.0" layoutY="63.0" mnemonicParsing="false" onAction="#newUserProcedure" text="Continue">
                <font>
@@ -58,6 +53,11 @@
                   <Font size="15.0" />
                </font>
             </Button>
+            <Text fx:id="warningText" layoutX="45.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="53.1298828125">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>

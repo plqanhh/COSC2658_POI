@@ -16,41 +16,41 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <Pane prefHeight="278.0" prefWidth="477.0">
+      <Pane prefHeight="316.0" prefWidth="560.0">
          <children>
             <Text layoutX="40.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text layoutX="42.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+            <Text layoutX="42.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <PasswordField fx:id="firstPasswordfield" layoutX="264.0" layoutY="54.0" prefHeight="37.0" prefWidth="199.0" />
-            <PasswordField fx:id="rePasswordfield" layoutX="264.0" layoutY="107.0" prefHeight="37.0" prefWidth="199.0" />
-            <Text layoutX="40.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-enter Password">
+            <PasswordField fx:id="firstPasswordfield" layoutX="42.0" layoutY="101.0" prefHeight="37.0" prefWidth="493.0" />
+            <PasswordField fx:id="rePasswordfield" layoutX="42.0" layoutY="186.0" prefHeight="37.0" prefWidth="493.0" />
+            <Text layoutX="42.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-enter Password">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-              <Button fx:id="backToLoginButton" layoutX="127.0" layoutY="181.0" onAction="#switchToLogin" text="Go Back">
+              <Button fx:id="backToLoginButton" layoutX="127.0" layoutY="271.0" onAction="#switchToLogin" text="Go Back">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="finishedRegisterButton" layoutX="307.0" layoutY="181.0" mnemonicParsing="false" onAction="#registerProcedure" text="Done">
+            <Button fx:id="finishedRegisterButton" layoutX="360.0" layoutY="271.0" mnemonicParsing="false" onAction="#registerProcedure" text="Done">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Text fx:id="warningText" layoutX="264.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0">
+            <Text fx:id="warningText" layoutX="42.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="4.0">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="userNameTextField" layoutX="264.0" layoutY="4.0" prefHeight="37.0" prefWidth="199.0" />
+            <TextField fx:id="userNameTextField" layoutX="42.0" layoutY="27.0" prefHeight="37.0" prefWidth="493.0" />
          </children>
       </Pane>
     </children>
