@@ -45,6 +45,7 @@ public class App extends Application {
     public static void main(String[] args) {
         mainSystem.readItemsFromFile();
         mainSystem.readAccountsFromFile();
+ 
         Application.launch(args);
     }
 

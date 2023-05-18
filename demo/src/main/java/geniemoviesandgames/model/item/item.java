@@ -10,7 +10,7 @@ abstract public class item {
         TWO_DAY, ONE_WEEK
     }
 
-    public enum RentalStatus {
+    public enum status {
         BORROWED, AVAILABLE
     }
 
@@ -23,7 +23,7 @@ abstract public class item {
     protected int itemStock;
     protected double itemFees;
     protected LoanType itemLoanType;
-    protected RentalStatus itemRentalStatus = RentalStatus.AVAILABLE;
+    protected status itemStatus = status.AVAILABLE;
     protected Genre itemGenre;
     protected Media_Formats itemMedia;
 
@@ -100,12 +100,12 @@ abstract public class item {
         this.itemLoanType = loanType;
     }
 
-    public RentalStatus getRentalStatus() {
-        return itemRentalStatus;
+    public status getStatus() {
+        return itemStatus;
     }
 
-    public void setRentalStatus(RentalStatus rentalStatus) {
-        this.itemRentalStatus = rentalStatus;
+    public void setStatus(status itemStatus) {
+        this.itemStatus = itemStatus;
     }
 
     public Genre getItemGenre() {
@@ -135,10 +135,11 @@ abstract public class item {
         setItemTitle(title);
         setItemID(ID);
         if (stocks > 0) {
-            setRentalStatus(RentalStatus.AVAILABLE);
+            setStatus(status.AVAILABLE);
         } else {
-            setRentalStatus(RentalStatus.BORROWED);
+            setStatus(status.BORROWED);
         }
+        setItemMedia(media);
         setItemStock(stocks);
         setItemFees(fees);
         setLoanType(loanType);
@@ -146,13 +147,16 @@ abstract public class item {
     }
 
     public void borrowItem() {
-        this.itemStock = this.itemStock + 1;
+        this.itemStock = this.itemStock -1 ;
+        if (this.itemStock == 0) {
+            setStatus(status.BORROWED);
+        }
     }
 
     public void returnItem() {
-        this.itemStock = this.itemStock - 1;
-        if (this.itemStock == 0) {
-            setRentalStatus(RentalStatus.BORROWED);
+        this.itemStock = this.itemStock + 1;
+        if (this.itemStock != 0) {
+            setStatus(status.AVAILABLE);
         }
     }
 }
