@@ -180,18 +180,5 @@ abstract public class account {
         this.itemReturned = itemReturned;
     }
 
-    public void Customerborrow(item itemIn) {
 
-        if (itemIn.getItemStock() != 0) {
-            itemIn.setItemStock(itemIn.getItemStock() - 1);
-            accountListOfRentals.add(itemIn);
-            itemBorrow++;
-        }
-    }
-
-    public void Customerreturn(item itemIn) {
-        itemIn.setItemStock(itemIn.getItemStock() + 1);
-        itemReturned++;
-        itemBorrow--;
-    }
 }

@@ -13,6 +13,8 @@ public class promote extends mainSystem {
                 acc.getAccountPhone(), acc.getAccountListOfRentals(), acc.getAccountUsername(),
                 acc.getAccountPassword());
         v1.setAccountListOfRentals(acc.getAccountListOfRentals());
+        v1.setItemReturned(0);
+        v1.setItemReturned(0);
         v1.setFreeRent(0);
         v1.setPoints(0);
         listOfAccounts.add(a, v1);
@@ -24,6 +26,8 @@ public class promote extends mainSystem {
         regularAccount r1 = new regularAccount(acc.getAccountID(), acc.getAccountFullname(), acc.getAccountAddress(),
                 acc.getAccountPhone(), acc.getAccountListOfRentals(), acc.getAccountUsername(),
                 acc.getAccountPassword());
+        r1.setItemReturned(0);
+        r1.setitemBorrow(0);
         r1.setAccountListOfRentals(acc.getAccountListOfRentals());
         listOfAccounts.add(a, r1);
     }

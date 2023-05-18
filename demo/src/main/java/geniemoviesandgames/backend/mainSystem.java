@@ -127,7 +127,7 @@ public class mainSystem {
                         itemOwn = null;
                     }
                 } else {
-                    itemOwn.add(searchOption.searchItemByID(id));
+                    itemOwn.add(searchOption.searchItemByID(line));
                 }
                 switch (customerType) {
                     case "VIP":

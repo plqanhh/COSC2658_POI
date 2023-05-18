@@ -17,5 +17,7 @@ public class test {
         System.out.println(alist);
         alist.add(a, 10);
         System.out.println(alist);
+        Genre g1 = Genre.valueOf("Action");
+        System.out.println(g1);
     }
 }
