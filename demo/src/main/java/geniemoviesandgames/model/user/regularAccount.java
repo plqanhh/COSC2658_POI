@@ -1,15 +1,15 @@
-package geniemoviesandgames.model.account;
+package geniemoviesandgames.model.user;
 
 import java.util.ArrayList;
 
 import geniemoviesandgames.backend.promote;
-import geniemoviesandgames.model.item.item;
+import geniemoviesandgames.model.product.item;
 
 public class regularAccount extends account{
 
     protected final int itemReturnedToPromote =5;    
 
-    public regularAccount(String ID,String name, String address,int phone,ArrayList<item> rentals,String username,String password){
+    public regularAccount(String ID,String name, String address,String phone,ArrayList<item> rentals,String username,String password){
         super(ID, name, address, phone, rentals,LevelOfServices.Regular, username, password);
     }
     

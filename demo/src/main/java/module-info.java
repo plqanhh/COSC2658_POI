@@ -9,11 +9,11 @@ module geniemoviesandgames {
     opens geniemoviesandgames.controller to javafx.fxml;
     exports geniemoviesandgames.controller;
 
-    opens geniemoviesandgames.model.item to javafx.fxml;
-    exports geniemoviesandgames.model.item;
+    opens geniemoviesandgames.model.product to javafx.fxml;
+    exports geniemoviesandgames.model.product;
 
-    opens geniemoviesandgames.model.account to javafx.fxml;
-    exports geniemoviesandgames.model.account;
+    opens geniemoviesandgames.model.user to javafx.fxml;
+    exports geniemoviesandgames.model.user;
 
 
 

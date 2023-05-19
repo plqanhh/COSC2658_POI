@@ -1,8 +1,8 @@
-package geniemoviesandgames.model.account;
+package geniemoviesandgames.model.user;
 
 import java.util.ArrayList;
 
-import geniemoviesandgames.model.item.item;
+import geniemoviesandgames.model.product.item;
 
 abstract public class account {
 
@@ -14,7 +14,7 @@ abstract public class account {
     protected String accountFullname;
     protected String accountUsername;
     protected String accountPassword;
-    protected int accountPhone;
+    protected String accountPhone;
     protected String accountAddress;
     protected LevelOfServices accountLevelOfServices;
 
@@ -79,14 +79,14 @@ abstract public class account {
     /**
      * @return int return the accountPhone
      */
-    public int getAccountPhone() {
+    public String getAccountPhone() {
         return accountPhone;
     }
 
     /**
      * @param accountPhone the accountPhone to set
      */
-    public void setAccountPhone(int accountPhone) {
+    public void setAccountPhone(String accountPhone) {
         this.accountPhone = accountPhone;
     }
 
@@ -131,7 +131,7 @@ abstract public class account {
     public account() {
     }
 
-    public account(String ID, String name, String address, int phone, ArrayList<item> rentals, LevelOfServices services,
+    public account(String ID, String name, String address, String phone, ArrayList<item> rentals, LevelOfServices services,
             String username, String password) {
         setAccountAddress(address);
         setAccountFullname(name);

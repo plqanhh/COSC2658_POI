@@ -1,4 +1,4 @@
-package geniemoviesandgames.model.item;
+package geniemoviesandgames.model.product;
 
 public class itemGame extends item {
 

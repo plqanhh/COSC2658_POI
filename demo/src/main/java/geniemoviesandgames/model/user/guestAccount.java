@@ -1,16 +1,16 @@
-package geniemoviesandgames.model.account;
+package geniemoviesandgames.model.user;
 
 import java.util.ArrayList;
 
 import geniemoviesandgames.backend.promote;
-import geniemoviesandgames.model.item.item;
+import geniemoviesandgames.model.product.item;
 
 public class guestAccount extends account{
 
     protected int itemBorrowAllow =2;
     protected int itemReturnedToPromote =3;
     
-    public guestAccount(String ID,String name, String address,int phone,ArrayList<item> rentals,String username,String password){
+    public guestAccount(String ID,String name, String address,String phone,ArrayList<item> rentals,String username,String password){
         super(ID, name, address, phone, rentals,LevelOfServices.Guest, username, password);
     }
 

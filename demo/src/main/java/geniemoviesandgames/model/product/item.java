@@ -1,4 +1,4 @@
-package geniemoviesandgames.model.item;
+package geniemoviesandgames.model.product;
 
 abstract public class item {
 
