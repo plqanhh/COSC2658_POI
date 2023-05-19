@@ -18,7 +18,7 @@ public class BillCalculation {
     }
 
     public static double calculateTotalRentalFeeForVIP(VipAccount vipaccount) {
-        double totalFee = 0.0;
+        double totalFee = 0.0;"C:\Users\thanh\GenieMoviesAndGames"
         for (Item item : vipaccount.getAccountListOfRentals()) {
             if (vipaccount.getFreeRentItems().contains(item)) {
                 totalFee += 0;
