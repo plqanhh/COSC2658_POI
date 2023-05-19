@@ -50,28 +50,4 @@ public class VipAccount extends Account {
     public VipAccount(String ID, String name, String address, int phone, ArrayList<Item> rentals, String username, String password){
         super(ID, name, address, phone, rentals,LevelOfServices.VIP, username, password);
     }
-
-    public void CustomerBorrow(Item itemIn) {
-        if(freeRent>0){
-            freeRent--;
-        }
-        itemIn.borrowItem();
-        if (itemIn.getItemStock() != 0) {
-            itemIn.setItemStock(itemIn.getItemStock() - 1);
-            accountListOfRentals.add(itemIn);
-            itemBorrow++;
-        }
-    }
-
-    public void CustomerReturn(Item itemIn) {
-        itemIn.returnItem();
-        itemIn.setItemStock(itemIn.getItemStock() + 1);
-        itemReturned++;
-        itemBorrow--;
-        Points+=PointsEachReturn;
-        if(Points == PointsForfreeRent){
-            Points=0;
-            freeRent++;
-        }
-    }
 }
