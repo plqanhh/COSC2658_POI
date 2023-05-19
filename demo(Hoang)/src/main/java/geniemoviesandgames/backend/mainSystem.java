@@ -120,6 +120,24 @@ public class mainSystem {
                 if(line.length() == 0 ){
                     break;
                 }
+                if(services!=null){
+                    switch (services) {
+                        case VIP:
+                            VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn, username, password);
+                            listOfAccounts.add(v1);
+                            break;
+                        case Guest:
+                            guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn, username, password);
+                            listOfAccounts.add(g1);
+                            break;
+                        case Regular:
+                            regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn, username, password);
+                            listOfAccounts.add(r1);
+                            break;
+                    }
+                    services =null;
+                    itemOwn.clear();
+                }
                 if (line.charAt(0) == 'C') {
                     fields = line.split(",");
                     id = fields[0];
