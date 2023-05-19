@@ -2,9 +2,9 @@ package geniemoviesandgames.model.account;
 
 import java.util.ArrayList;
 
-import geniemoviesandgames.model.item.item;
+import geniemoviesandgames.model.item.Item;
 
-abstract public class account {
+abstract public class Account {
 
     public enum LevelOfServices {
         Guest, Regular, VIP
@@ -18,7 +18,7 @@ abstract public class account {
     protected String accountAddress;
     protected LevelOfServices accountLevelOfServices;
 
-    protected ArrayList<item> accountListOfRentals = new ArrayList<>();
+    protected ArrayList<Item> accountListOfRentals = new ArrayList<>();
 
     /**
      * @return String return the accountID
@@ -107,14 +107,14 @@ abstract public class account {
     /**
      * @return item[] return the accountListOfRentals
      */
-    public ArrayList<item> getAccountListOfRentals() {
+    public ArrayList<Item> getAccountListOfRentals() {
         return accountListOfRentals;
     }
 
     /**
-     * @param accountListOfRentals the accountListOfRentals to set
+     * @param "accountListOfRentals" the accountListOfRentals to set
      */
-    public void setAccountListOfRentals(ArrayList<item> rentList) {
+    public void setAccountListOfRentals(ArrayList<Item> rentList) {
         if (rentList != null) {
             accountListOfRentals.addAll(rentList);
         }
@@ -128,11 +128,11 @@ abstract public class account {
         this.accountLevelOfServices = services;
     }
 
-    public account() {
+    public Account() {
     }
 
-    public account(String ID, String name, String address, int phone, ArrayList<item> rentals, LevelOfServices services,
-            String username, String password) {
+    public Account(String ID, String name, String address, int phone, ArrayList<Item> rentals, LevelOfServices services,
+                   String username, String password) {
         setAccountAddress(address);
         setAccountFullname(name);
         setAccountID(ID);
@@ -155,14 +155,14 @@ abstract public class account {
     /**
      * @return int itemBorrow return the
      */
-    public int getitemBorrow() {
+    public int getItemBorrow() {
         return this.itemBorrow;
     }
 
     /**
      * @param the to set
      */
-    public void setitemBorrow(int itemBorrow) {
+    public void setItemBorrow(int itemBorrow) {
         this.itemBorrow = itemBorrow;
     }
 
