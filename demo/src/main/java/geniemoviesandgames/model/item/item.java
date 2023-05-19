@@ -1,17 +1,14 @@
 package geniemoviesandgames.model.item;
 
-import java.time.LocalDate;
-
-abstract public class Item {
+abstract public class item {
 
     public enum Media_Formats {
         Record, DVD, Game
     }
 
     public enum LoanType {
-        TWO_DAYS, ONE_WEEK
+        TWO_DAY, ONE_WEEK
     }
-
 
     public enum status {
         BORROWED, AVAILABLE
@@ -29,8 +26,6 @@ abstract public class Item {
     protected status itemStatus = status.AVAILABLE;
     protected Genre itemGenre;
     protected Media_Formats itemMedia;
-    protected LocalDate rentalDay;
-    protected LocalDate returnDay;
 
     /**
      * @return String return the itemTitle
@@ -129,30 +124,14 @@ abstract public class Item {
         this.itemMedia = media;
     }
 
-    public LocalDate getRentalDay() {
-        return rentalDay;
-    }
-
-    public void setRentalDay(LocalDate rentalDay) {
-        this.rentalDay = rentalDay;
-    }
-
-    public LocalDate getReturnDay() {
-        return returnDay;
-    }
-
-    public void setReturnDay(LocalDate returnDay) {
-        this.returnDay = returnDay;
-    }
-
-    public Item() {
+    public item() {
         setItemTitle(null);
         setItemID(null);
         setItemStock(0);
         setItemFees(0);
     }
 
-    public Item(String ID, String title, Media_Formats media, LoanType loanType, int stocks, Double fees, Genre genre) {
+    public item(String ID, String title, Media_Formats media, LoanType loanType, int stocks, Double fees, Genre genre) {
         setItemTitle(title);
         setItemID(ID);
         if (stocks > 0) {
@@ -178,17 +157,6 @@ abstract public class Item {
         this.itemStock = this.itemStock + 1;
         if (this.itemStock != 0) {
             setStatus(status.AVAILABLE);
-        }
-    }
-
-    public void setUpReturnDay() {
-        if (this.itemLoanType == LoanType.TWO_DAYS) {
-            setRentalDay(LocalDate.now());
-            setReturnDay(this.getRentalDay().plusDays(2));
-        }
-        else {
-            setRentalDay(LocalDate.now());
-            setReturnDay(this.getRentalDay().plusDays(7));
         }
     }
 }

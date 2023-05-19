@@ -3,17 +3,17 @@ package geniemoviesandgames.backend;
 import java.util.ArrayList;
 
 import geniemoviesandgames.model.account.VipAccount;
-import geniemoviesandgames.model.account.Account;
-import geniemoviesandgames.model.account.GuestAccount;
-import geniemoviesandgames.model.account.RegularAccount;
-import geniemoviesandgames.model.account.Account.LevelOfServices;
-import geniemoviesandgames.model.item.ItemDVD;
-import geniemoviesandgames.model.item.ItemGame;
-import geniemoviesandgames.model.item.Item;
-import geniemoviesandgames.model.item.ItemRecord;
-import geniemoviesandgames.model.item.Item.Genre;
-import geniemoviesandgames.model.item.Item.LoanType;
-import geniemoviesandgames.model.item.Item.Media_Formats;
+import geniemoviesandgames.model.account.account;
+import geniemoviesandgames.model.account.guestAccount;
+import geniemoviesandgames.model.account.regularAccount;
+import geniemoviesandgames.model.account.account.LevelOfServices;
+import geniemoviesandgames.model.item.itemDVD;
+import geniemoviesandgames.model.item.itemGame;
+import geniemoviesandgames.model.item.item;
+import geniemoviesandgames.model.item.itemRecord;
+import geniemoviesandgames.model.item.item.Genre;
+import geniemoviesandgames.model.item.item.LoanType;
+import geniemoviesandgames.model.item.item.Media_Formats;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,29 +21,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class mainSystem {
-    protected static ArrayList<Item> listOfItems = new ArrayList<>();
-    protected static ArrayList<Account> listOfAccounts = new ArrayList<>();
+    protected static ArrayList<item> listOfItems = new ArrayList<>();
+    protected static ArrayList<account> listOfAccounts = new ArrayList<>();
     protected final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
     protected final static String AccountFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
 
-    public static ArrayList<Item> getListOfItems() {
+    public static ArrayList<item> getListOfItems() {
         return listOfItems;
     }
 
-    public static ArrayList<Account> getListOfAccounts() {
+    public static ArrayList<account> getListOfAccounts() {
         return listOfAccounts;
     }
 
-    public static void addListOfItems(Item itemIn) {
+    public static void addListOfItems(item itemIn) {
         listOfItems.add(itemIn);
     }
 
-    public static void addlistOfAccounts(Account accin) {
+    public static void addlistOfAccounts(account accin) {
         listOfAccounts.add(accin);
     }
 
     public static Boolean acountLogin(String username, String password) {
-        for (Account a : listOfAccounts) {
+        for (account a : listOfAccounts) {
             if ((a.getAccountUsername()).equals(username) && a.getAccountPassword().equals(password)) {
                 return true;
             }
@@ -80,18 +80,18 @@ public class mainSystem {
                 itemFee = Double.parseDouble(fields[5]);
                 switch (itemMedia) {
                     case Game:
-                        ItemGame g1 = new ItemGame(itemID, itemTitle, itemLoanType, itemCopies, itemFee );
+                        itemGame g1 = new itemGame(itemID, itemTitle, itemLoanType, itemCopies, itemFee );
                         listOfItems.add(g1);
                         break;
                     case Record:
                         itemGenre = Genre.valueOf(fields[6]);
-                        ItemRecord m1 = new ItemRecord(itemID, itemTitle, itemLoanType, itemCopies, itemFee,
+                        itemRecord m1 = new itemRecord(itemID, itemTitle, itemLoanType, itemCopies, itemFee,
                                 itemGenre);
                         listOfItems.add(m1);
                         break;
                     case DVD:
                         itemGenre = Genre.valueOf(fields[6]);
-                        ItemDVD d1 = new ItemDVD(itemID, itemTitle, itemLoanType, itemCopies, itemFee,
+                        itemDVD d1 = new itemDVD(itemID, itemTitle, itemLoanType, itemCopies, itemFee,
                                 itemGenre);
                         listOfItems.add(d1);
                         break;
@@ -114,7 +114,7 @@ public class mainSystem {
             String id = null, name = null, address = null, username = null, password = null;
             int phone = 0;
             LevelOfServices services=null;
-            ArrayList<Item> itemOwn = new ArrayList<>();
+            ArrayList<item> itemOwn = new ArrayList<>();
 
             while ((line = br1.readLine()) != null) {
                 if(line.length() == 0 ){
@@ -143,11 +143,11 @@ public class mainSystem {
                         listOfAccounts.add(v1);
                         break;
                     case Guest:
-                        GuestAccount g1 = new GuestAccount(id, name, address, phone, itemOwn, username, password);
+                        guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn, username, password);
                         listOfAccounts.add(g1);
                         break;
                     case Regular:
-                        RegularAccount r1 = new RegularAccount(id, name, address, phone, itemOwn, username, password);
+                        regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn, username, password);
                         listOfAccounts.add(r1);
                         break;
                 }
@@ -157,7 +157,7 @@ public class mainSystem {
         }
     }
 
-    public static String accountToString(Account accIn) {
+    public static String accountToString(account accIn) {
         String phrase = "";
         if(accIn.getAccountListOfRentals()!=null){
             phrase = phrase+accIn.getAccountID() + "," + accIn.getAccountFullname() + "," + accIn.getAccountAddress() + ","
@@ -177,7 +177,7 @@ public class mainSystem {
         return phrase ;
     }
 
-    public static String itemToString(Item itemIn) {
+    public static String itemToString(item itemIn) {
         String phrase="";
         phrase = itemIn.getItemID() + "," + itemIn.getItemTitle() + "," + itemIn.getItemMedia() + ","
                 + itemIn.getLoanType() + "," + itemIn.getItemStock() + "," + itemIn.getItemFees();
@@ -189,7 +189,7 @@ public class mainSystem {
 
     public static void saveItemsToFile() {
         String phrase="";
-        for (Item i : listOfItems) {
+        for (item i : listOfItems) {
 
             phrase = phrase+itemToString(i)+"\n";
 
@@ -207,7 +207,7 @@ public class mainSystem {
 
     public static void saveAccountsToFile() {
         String phrase ="";
-        for (Account a : listOfAccounts) {
+        for (account a : listOfAccounts) {
             phrase = phrase+accountToString(a)+"\n";
         }
 /*         try {
