@@ -1,5 +1,6 @@
 package geniemoviesandgames.model.user;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import geniemoviesandgames.model.product.item;
@@ -37,8 +38,8 @@ public class VipAccount extends account{
     public void setPoints(int Points) {
         this.Points = Points;
     }
-    public VipAccount(String ID,String name, String address,String phone,ArrayList<item> rentals,String username,String password){
-        super(ID, name, address, phone, rentals,LevelOfServices.VIP, username, password);
+    public VipAccount(String ID,String name, String address,String phone,ArrayList<item> rentals,ArrayList<LocalDate> date,String username,String password){
+        super(ID, name, address, phone, rentals,date,LevelOfServices.VIP, username, password);
     }
 
     public void CustomerBorrow(item itemIn) {

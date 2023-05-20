@@ -1,5 +1,6 @@
 package geniemoviesandgames.model.user;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import geniemoviesandgames.model.product.item;
@@ -19,6 +20,7 @@ abstract public class account {
     protected LevelOfServices accountLevelOfServices;
 
     protected ArrayList<item> accountListOfRentals = new ArrayList<>();
+    protected ArrayList<LocalDate> accountListOfRentalsDate = new ArrayList<>();
 
     /**
      * @return String return the accountID
@@ -116,8 +118,33 @@ abstract public class account {
      */
     public void setAccountListOfRentals(ArrayList<item> rentList) {
         if (rentList != null) {
+            accountListOfRentals.clear();
             accountListOfRentals.addAll(rentList);
         }
+    }
+    public void addAccountListOfRentals(item rentItem){
+        accountListOfRentals.add(rentItem);
+    }
+    public void addAccountListOfRentals(ArrayList<item> rentItem){
+        accountListOfRentals.addAll(rentItem);
+    }
+
+    public ArrayList<LocalDate> getAccountListOfRentalsDates(){
+        return accountListOfRentalsDate;
+    }
+
+    public void setAccountListOfRentalsDates(ArrayList<LocalDate> dateList){
+        if (dateList != null) {
+            accountListOfRentalsDate.clear();
+            accountListOfRentalsDate.addAll(dateList);
+        }
+    }
+
+    public void addAccountListOfRentalsDates(LocalDate date){
+        accountListOfRentalsDate.add(date);
+    }
+    public void addAccountListOfRentalsDates(ArrayList<LocalDate> rentItem){
+        accountListOfRentalsDate.addAll(rentItem);
     }
 
     public LevelOfServices getAccountLevelOfServices() {
@@ -131,7 +158,7 @@ abstract public class account {
     public account() {
     }
 
-    public account(String ID, String name, String address, String phone, ArrayList<item> rentals, LevelOfServices services,
+    public account(String ID, String name, String address, String phone, ArrayList<item> rentals,ArrayList<LocalDate> date, LevelOfServices services,
             String username, String password) {
         setAccountAddress(address);
         setAccountFullname(name);
@@ -143,11 +170,15 @@ abstract public class account {
         if (rentals != null) {
             setAccountListOfRentals(rentals);
         }
+        if (date != null) {
+            setAccountListOfRentalsDates(date);
+        }
     }
 
     /* service Setup */
     protected int itemBorrow = 0;
     protected int itemReturned = 0;
+    protected double billToPay =0.0;
 
     protected int itemBorrowAllow =2;
     protected int itemReturnedToPromote =3;
@@ -155,14 +186,14 @@ abstract public class account {
     /**
      * @return int itemBorrow return the
      */
-    public int getitemBorrow() {
+    public int getItemBorrow() {
         return this.itemBorrow;
     }
 
     /**
      * @param the to set
      */
-    public void setitemBorrow(int itemBorrow) {
+    public void setItemBorrow(int itemBorrow) {
         this.itemBorrow = itemBorrow;
     }
 
@@ -180,5 +211,13 @@ abstract public class account {
         this.itemReturned = itemReturned;
     }
 
-
+    public double getBillToPay(){
+        return billToPay;
+    }
+    public void setBillToPay(double bill){
+        billToPay = bill;
+    }
+    public void addBillToPay(double bill){
+        billToPay+=bill;
+    }
 }

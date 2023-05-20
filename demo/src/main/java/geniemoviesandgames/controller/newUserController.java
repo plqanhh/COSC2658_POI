@@ -27,7 +27,7 @@ public class newUserController extends Switchingscence {
         } else {
             String makeID = "C" + String.format("%03d", mainSystem.getListOfAccounts().size());
             guestAccount g2 = new guestAccount(makeID, nameTextfield.getText(), addressTextfield.getText(),
-                    phoneTextfield.getText(), null, registerController.getUsername(),
+                    phoneTextfield.getText(),null, null, registerController.getUsername(),
                     registerController.getPassword());
             mainSystem.addlistOfAccounts(g2);
             menuController.setMainAcc(g2);

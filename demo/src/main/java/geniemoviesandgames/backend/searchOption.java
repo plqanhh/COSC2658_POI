@@ -1,7 +1,7 @@
 package geniemoviesandgames.backend;
 
-import geniemoviesandgames.model.account.account;
-import geniemoviesandgames.model.item.item;
+import geniemoviesandgames.model.product.item;
+import geniemoviesandgames.model.user.account;
 
 public class searchOption extends mainSystem{
     

@@ -1,5 +1,6 @@
 package geniemoviesandgames.model.user;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import geniemoviesandgames.backend.promote;
@@ -10,8 +11,8 @@ public class guestAccount extends account{
     protected int itemBorrowAllow =2;
     protected int itemReturnedToPromote =3;
     
-    public guestAccount(String ID,String name, String address,String phone,ArrayList<item> rentals,String username,String password){
-        super(ID, name, address, phone, rentals,LevelOfServices.Guest, username, password);
+    public guestAccount(String ID,String name, String address,String phone,ArrayList<item> rentals,ArrayList<LocalDate> date,String username,String password){
+        super(ID, name, address, phone, rentals,date,LevelOfServices.Guest, username, password);
     }
 
     public void CustomerBorrow(item itemIn) {

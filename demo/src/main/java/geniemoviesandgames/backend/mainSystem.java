@@ -19,8 +19,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class mainSystem {
+
+    public enum accountPart{
+        ID,Name,Address,Phone,Number_of_rentals,customer_type, username, password
+    }
+    public enum itemPart{
+        ID,Title,Media_Formats,Loan_type,copies,rental_fee,genre
+    }
+
     protected static ArrayList<item> listOfItems = new ArrayList<>();
     protected static ArrayList<account> listOfAccounts = new ArrayList<>();
     protected final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
@@ -111,10 +120,10 @@ public class mainSystem {
             br1 = new BufferedReader(customerFile);
             String line;
             String[] fields;
-            String id = null, name = null, address = null, username = null, password = null, phone = null;
+            String id = null, name = null, address = null, username = null, password = null, phone = null,itemOwnID=null;
             LevelOfServices services = null;
             ArrayList<item> itemOwn = new ArrayList<>();
-
+            ArrayList<LocalDate> itemOwnDate= new ArrayList<>();
             while ((line = br1.readLine()) != null) {
                 if (line.length() == 0) {
                     break;
@@ -124,16 +133,16 @@ public class mainSystem {
                     if (services != null) {
                         switch (services) {
                             case VIP:
-                                VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn, username, password);
+                                VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
                                 listOfAccounts.add(v1);
                                 break;
                             case Guest:
-                                guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn, username,
+                                guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn,itemOwnDate, username,
                                         password);
                                 listOfAccounts.add(g1);
                                 break;
                             case Regular:
-                                regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn, username,
+                                regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn,itemOwnDate, username,
                                         password);
                                 listOfAccounts.add(r1);
                                 break;
@@ -154,21 +163,24 @@ public class mainSystem {
                     }
                 } else if (line.charAt(0) == 'I') {
                     if (itemOwn != null) {
-                        itemOwn.add(searchOption.searchItemByID(line));
+                        fields = line.split(",");
+                        itemOwnID = fields[0];
+                        itemOwnDate.add(LocalDate.parse(fields[1])) ;
+                        itemOwn.add(searchOption.searchItemByID(itemOwnID));
                     }
                 }
             }
             switch (services) {
                 case VIP:
-                    VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn, username, password);
+                    VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
                     listOfAccounts.add(v1);
                     break;
                 case Guest:
-                    guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn, username, password);
+                    guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
                     listOfAccounts.add(g1);
                     break;
-                case Regular:
-                    regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn, username, password);
+                    case Regular:
+                    regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
                     listOfAccounts.add(r1);
                     break;
                 default:
@@ -188,7 +200,7 @@ public class mainSystem {
                     + accIn.getAccountLevelOfServices() + "," + accIn.getAccountUsername() + ","
                     + accIn.getAccountPassword();
             for (int i = 0; i < accIn.getAccountListOfRentals().size(); i++) {
-                phrase = phrase + "\n" + accIn.getAccountListOfRentals().get(i).getItemID();
+                phrase = phrase + "\n" + accIn.getAccountListOfRentals().get(i).getItemID()+","+accIn.getAccountListOfRentalsDates().get(i);
             }
         } else {
             phrase = phrase + accIn.getAccountID() + "," + accIn.getAccountFullname() + "," + accIn.getAccountAddress()
@@ -197,7 +209,6 @@ public class mainSystem {
                     + accIn.getAccountLevelOfServices() + "," + accIn.getAccountUsername() + ","
                     + accIn.getAccountPassword();
         }
-        System.out.println(phrase);
         return phrase;
     }
 
