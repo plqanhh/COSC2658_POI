@@ -7,7 +7,7 @@ public class searchOption extends mainSystem{
     
     public static item searchItemByID(String id) {
         for (item i : listOfItems) {
-            if ((i.getItemID()).equals(id)) {
+            if ((i.getID()).equals(id)) {
                 return i;
             }
         }
@@ -16,7 +16,7 @@ public class searchOption extends mainSystem{
 
     public static account searchAccountByID(String id) {
         for (account a : listOfAccounts) {
-            if ((a.getAccountID()).equals(id)) {
+            if ((a.getID()).equals(id)) {
                 return a;
             }
         }
@@ -25,7 +25,7 @@ public class searchOption extends mainSystem{
 
     public static item searchItemByName(String name) {
         for (item i : listOfItems) {
-            if ((i.getItemTitle()).equals(name)) {
+            if ((i.getTitle()).equals(name)) {
                 return i;
             }
         }
@@ -34,7 +34,7 @@ public class searchOption extends mainSystem{
 
     public static account searchAccountByName(String name) {
         for (account a : listOfAccounts) {
-            if ((a.getAccountFullname()).equals(name)) {
+            if ((a.getFullname()).equals(name)) {
                 return a;
             }
         }

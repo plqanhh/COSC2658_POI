@@ -30,7 +30,7 @@ public class mainSystem {
         ID,Title,Media_Formats,Loan_type,copies,rental_fee,genre
     }
 
-    protected static ArrayList<item> listOfItems = new ArrayList<>();
+    protected static  ArrayList<item> listOfItems = new ArrayList<>();
     protected static ArrayList<account> listOfAccounts = new ArrayList<>();
     protected final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
     protected final static String AccountFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
@@ -43,17 +43,25 @@ public class mainSystem {
         return listOfAccounts;
     }
 
-    public static void addListOfItems(item itemIn) {
+    public static void addItemListOfItems(item itemIn) {
         listOfItems.add(itemIn);
     }
 
-    public static void addlistOfAccounts(account accin) {
+    public static void addAccountlistOfAccounts(account accin) {
         listOfAccounts.add(accin);
+    }
+
+    public static void removeItemListOfItems(item itemIn){
+        listOfItems.remove(itemIn);
+    }
+
+    public static void removeAccountListOfAccount(account accIn){
+        listOfAccounts.remove(accIn);
     }
 
     public static Boolean acountLogin(String username, String password) {
         for (account a : listOfAccounts) {
-            if ((a.getAccountUsername()).equals(username) && a.getAccountPassword().equals(password)) {
+            if ((a.getUsername()).equals(username) && a.getPassword().equals(password)) {
                 return true;
             }
         }
@@ -193,31 +201,31 @@ public class mainSystem {
 
     public static String accountToString(account accIn) {
         String phrase = "";
-        if (accIn.getAccountListOfRentals() != null) {
-            phrase = phrase + accIn.getAccountID() + "," + accIn.getAccountFullname() + "," + accIn.getAccountAddress()
+        if (accIn.getListOfRentals() != null) {
+            phrase = phrase + accIn.getID() + "," + accIn.getFullname() + "," + accIn.getAddress()
                     + ","
-                    + accIn.getAccountPhone() + "," + accIn.getAccountListOfRentals().size() + ","
-                    + accIn.getAccountLevelOfServices() + "," + accIn.getAccountUsername() + ","
-                    + accIn.getAccountPassword();
-            for (int i = 0; i < accIn.getAccountListOfRentals().size(); i++) {
-                phrase = phrase + "\n" + accIn.getAccountListOfRentals().get(i).getItemID()+","+accIn.getAccountListOfRentalsDates().get(i);
+                    + accIn.getPhone() + "," + accIn.getListOfRentals().size() + ","
+                    + accIn.getLevelOfServices() + "," + accIn.getUsername() + ","
+                    + accIn.getPassword();
+            for (int i = 0; i < accIn.getListOfRentals().size(); i++) {
+                phrase = phrase + "\n" + accIn.getListOfRentals().get(i).getID()+","+accIn.getListOfDates().get(i);
             }
         } else {
-            phrase = phrase + accIn.getAccountID() + "," + accIn.getAccountFullname() + "," + accIn.getAccountAddress()
+            phrase = phrase + accIn.getID() + "," + accIn.getFullname() + "," + accIn.getAddress()
                     + ","
-                    + accIn.getAccountPhone() + "," + "0" + ","
-                    + accIn.getAccountLevelOfServices() + "," + accIn.getAccountUsername() + ","
-                    + accIn.getAccountPassword();
+                    + accIn.getPhone() + "," + "0" + ","
+                    + accIn.getLevelOfServices() + "," + accIn.getUsername() + ","
+                    + accIn.getPassword();
         }
         return phrase;
     }
 
     public static String itemToString(item itemIn) {
         String phrase = "";
-        phrase = itemIn.getItemID() + "," + itemIn.getItemTitle() + "," + itemIn.getItemMedia() + ","
-                + itemIn.getLoanType() + "," + itemIn.getItemStock() + "," + itemIn.getItemFees();
-        if (itemIn.getItemGenre() != null) {
-            phrase = phrase + "," + itemIn.getItemGenre().toString();
+        phrase = itemIn.getID() + "," + itemIn.getTitle() + "," + itemIn.getMedia() + ","
+                + itemIn.getLoanType() + "," + itemIn.getStock() + "," + itemIn.getFees();
+        if (itemIn.getGenre() != null) {
+            phrase = phrase + "," + itemIn.getGenre().toString();
         }
         return phrase;
     }

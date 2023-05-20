@@ -9,10 +9,10 @@ public class promote extends mainSystem {
     public static void regularToVip(regularAccount acc) {
         int a = listOfAccounts.indexOf(acc);
         listOfAccounts.remove(acc);
-        VipAccount v1 = new VipAccount(acc.getAccountID(), acc.getAccountFullname(), acc.getAccountAddress(),
-                acc.getAccountPhone(), acc.getAccountListOfRentals(),acc.getAccountListOfRentalsDates(), acc.getAccountUsername(),
-                acc.getAccountPassword());
-        v1.setAccountListOfRentals(acc.getAccountListOfRentals());
+        VipAccount v1 = new VipAccount(acc.getID(), acc.getFullname(), acc.getAddress(),
+                acc.getPhone(), acc.getListOfRentals(),acc.getListOfDates(), acc.getUsername(),
+                acc.getPassword());
+        v1.setListOfRentals(acc.getListOfRentals());
         v1.setItemReturned(0);
         v1.setFreeRent(0);
         v1.setPoints(0);
@@ -23,12 +23,12 @@ public class promote extends mainSystem {
     public static void guestToRegular(guestAccount acc) {
         int a = mainSystem.listOfAccounts.indexOf(acc);
         listOfAccounts.remove(acc);
-        regularAccount r1 = new regularAccount(acc.getAccountID(), acc.getAccountFullname(), acc.getAccountAddress(),
-                acc.getAccountPhone(), acc.getAccountListOfRentals(),acc.getAccountListOfRentalsDates(), acc.getAccountUsername(),
-                acc.getAccountPassword());
+        regularAccount r1 = new regularAccount(acc.getID(), acc.getFullname(), acc.getAddress(),
+                acc.getPhone(), acc.getListOfRentals(),acc.getListOfDates(), acc.getUsername(),
+                acc.getPassword());
         r1.setItemReturned(0);
         r1.setItemBorrow(0);
-        r1.setAccountListOfRentals(acc.getAccountListOfRentals());
+        r1.setListOfRentals(acc.getListOfRentals());
         listOfAccounts.add(a, r1);
         System.out.println("You have been promoted to a regular");
     }

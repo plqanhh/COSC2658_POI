@@ -29,7 +29,7 @@ public class newUserController extends Switchingscence {
             guestAccount g2 = new guestAccount(makeID, nameTextfield.getText(), addressTextfield.getText(),
                     phoneTextfield.getText(),null, null, registerController.getUsername(),
                     registerController.getPassword());
-            mainSystem.addlistOfAccounts(g2);
+            mainSystem.addAccountlistOfAccounts(g2);
             menuController.setMainAcc(g2);
             switchToMenu();
         }

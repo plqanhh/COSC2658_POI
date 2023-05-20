@@ -13,7 +13,7 @@ public class ItemsReturning extends mainSystem {
     public void returnItemForGuest(GuestAccount guestAccount, Item item) {
         if (guestAccount.getAccountListOfRentals().contains(item)) {
             item.returnItem();
-            guestAccount.getAccountListOfRentals().remove(item);
+            guestAccount.ac().remove(item);
             guestAccount.setItemReturned(guestAccount.getItemReturned() + 1);
             // Check if they return the items on time
             checkForLateReturn(guestAccount);

@@ -11,177 +11,160 @@ abstract public class account {
         Guest, Regular, VIP
     }
 
-    protected String accountID;
-    protected String accountFullname;
-    protected String accountUsername;
-    protected String accountPassword;
-    protected String accountPhone;
-    protected String accountAddress;
-    protected LevelOfServices accountLevelOfServices;
+    protected String ID;
+    protected String fullname;
+    protected String username;
+    protected String password;
+    protected String phone;
+    protected String address;
+    protected LevelOfServices levelOfServices;
 
-    protected ArrayList<item> accountListOfRentals = new ArrayList<>();
-    protected ArrayList<LocalDate> accountListOfRentalsDate = new ArrayList<>();
+    protected ArrayList<item> listOfRentals = new ArrayList<>();
+    protected ArrayList<LocalDate> listOfDate = new ArrayList<>();
 
     /**
      * @return String return the accountID
      */
-    public String getAccountID() {
-        return accountID;
+    public String getID() {
+        return ID;
     }
 
     /**
      * @param accountID the accountID to set
      */
-    public void setAccountID(String accountID) {
-        this.accountID = accountID;
+    public void setID(String accountID) {
+        this.ID = accountID;
     }
 
     /**
      * @return String return the accountFullname
      */
-    public String getAccountFullname() {
-        return accountFullname;
+    public String getFullname() {
+        return fullname;
     }
 
     /**
      * @param accountFullname the accountFullname to set
      */
-    public void setAccountFullname(String accountFullname) {
-        this.accountFullname = accountFullname;
+    public void setFullname(String accountFullname) {
+        this.fullname = accountFullname;
     }
 
     /**
      * @return String return the accountUsername
      */
-    public String getAccountUsername() {
-        return accountUsername;
+    public String getUsername() {
+        return username;
     }
 
     /**
      * @param accountUsername the accountUsername to set
      */
-    public void setAccountUsername(String accountUsername) {
-        this.accountUsername = accountUsername;
+    public void setUsername(String accountUsername) {
+        this.username = accountUsername;
     }
 
     /**
      * @return String return the accountPassword
      */
-    public String getAccountPassword() {
-        return accountPassword;
+    public String getPassword() {
+        return password;
     }
 
     /**
      * @param accountPassword the accountPassword to set
      */
-    public void setAccountPassword(String accountPassword) {
-        this.accountPassword = accountPassword;
+    public void setPassword(String accountPassword) {
+        this.password = accountPassword;
     }
 
     /**
      * @return int return the accountPhone
      */
-    public String getAccountPhone() {
-        return accountPhone;
+    public String getPhone() {
+        return phone;
     }
 
     /**
      * @param accountPhone the accountPhone to set
      */
-    public void setAccountPhone(String accountPhone) {
-        this.accountPhone = accountPhone;
+    public void setPhone(String accountPhone) {
+        this.phone = accountPhone;
     }
 
     /**
      * @return String return the accountAddress
      */
-    public String getAccountAddress() {
-        return accountAddress;
+    public String getAddress() {
+        return address;
     }
 
     /**
      * @param accountAddress the accountAddress to set
      */
-    public void setAccountAddress(String accountAddress) {
-        this.accountAddress = accountAddress;
+    public void setAddress(String accountAddress) {
+        this.address = accountAddress;
     }
 
     /**
      * @return item[] return the accountListOfRentals
      */
-    public ArrayList<item> getAccountListOfRentals() {
-        return accountListOfRentals;
+    public ArrayList<item> getListOfRentals() {
+        return listOfRentals;
     }
 
     /**
-     * @param accountListOfRentals the accountListOfRentals to set
+     * @param listOfRentals the accountListOfRentals to set
      */
-    public void setAccountListOfRentals(ArrayList<item> rentList) {
+    public void setListOfRentals(ArrayList<item> rentList) {
         if (rentList != null) {
-            accountListOfRentals.clear();
-            accountListOfRentals.addAll(rentList);
+            listOfRentals.clear();
+            listOfRentals.addAll(rentList);
         }
     }
-    public void addAccountListOfRentals(item rentItem){
-        accountListOfRentals.add(rentItem);
-    }
-    public void addAccountListOfRentals(ArrayList<item> rentItem){
-        accountListOfRentals.addAll(rentItem);
+
+    public ArrayList<LocalDate> getListOfDates(){
+        return listOfDate;
     }
 
-    public ArrayList<LocalDate> getAccountListOfRentalsDates(){
-        return accountListOfRentalsDate;
-    }
-
-    public void setAccountListOfRentalsDates(ArrayList<LocalDate> dateList){
+    public void setListOfDates(ArrayList<LocalDate> dateList){
         if (dateList != null) {
-            accountListOfRentalsDate.clear();
-            accountListOfRentalsDate.addAll(dateList);
+            listOfDate.clear();
+            listOfDate.addAll(dateList);
         }
     }
 
-    public void addAccountListOfRentalsDates(LocalDate date){
-        accountListOfRentalsDate.add(date);
-    }
-    public void addAccountListOfRentalsDates(ArrayList<LocalDate> rentItem){
-        accountListOfRentalsDate.addAll(rentItem);
+    public LevelOfServices getLevelOfServices() {
+        return this.levelOfServices;
     }
 
-    public LevelOfServices getAccountLevelOfServices() {
-        return this.accountLevelOfServices;
+    public void setLevelOfServices(LevelOfServices services) {
+        this.levelOfServices = services;
     }
-
-    public void setAccountLevelOfServices(LevelOfServices services) {
-        this.accountLevelOfServices = services;
-    }
-
+    
     public account() {
     }
 
     public account(String ID, String name, String address, String phone, ArrayList<item> rentals,ArrayList<LocalDate> date, LevelOfServices services,
             String username, String password) {
-        setAccountAddress(address);
-        setAccountFullname(name);
-        setAccountID(ID);
-        setAccountPassword(password);
-        setAccountPhone(phone);
-        setAccountUsername(username);
-        setAccountLevelOfServices(services);
+        setAddress(address);
+        setFullname(name);
+        setID(ID);
+        setPassword(password);
+        setPhone(phone);
+        setUsername(username);
+        setLevelOfServices(services);
         if (rentals != null) {
-            setAccountListOfRentals(rentals);
+            setListOfRentals(rentals);
         }
         if (date != null) {
-            setAccountListOfRentalsDates(date);
+            setListOfDates(date);
         }
     }
 
     /* service Setup */
     protected int itemBorrow = 0;
     protected int itemReturned = 0;
-    protected double billToPay =0.0;
-
-    protected int itemBorrowAllow =2;
-    protected int itemReturnedToPromote =3;
 
     /**
      * @return int itemBorrow return the
@@ -211,13 +194,45 @@ abstract public class account {
         this.itemReturned = itemReturned;
     }
 
-    public double getBillToPay(){
-        return billToPay;
+    public LocalDate getDate(item itemIn){
+        if(listOfRentals.contains(itemIn)==true){
+    
+            return listOfDate.get(listOfRentals.indexOf(itemIn));
+        }
+        else{return null;}
     }
-    public void setBillToPay(double bill){
-        billToPay = bill;
+    
+    public void accBorrowItem(item itemIn){
+        itemBorrow++;
+        listOfRentals.add(itemIn);
+        listOfDate.add(LocalDate.now());
+        System.out.println("add successfully");
     }
-    public void addBillToPay(double bill){
-        billToPay+=bill;
+
+
+
+    public void accBorrowItem(item itemIn,LocalDate date){
+        listOfRentals.add(itemIn);
+        listOfDate.add(date);
+        itemBorrow++;
+        System.out.println("add successfully");
     }
+
+    public void accBorrowItem(ArrayList<item> listItemIn,ArrayList<LocalDate> listdates){
+
+        listOfRentals.addAll(listItemIn);
+        listOfDate.addAll(listdates);
+        itemBorrow+=listItemIn.size();
+        System.out.println("add successfully");
+    }
+
+    public double accReturnItem(item itemIn){
+
+        listOfRentals.remove(itemIn);
+        listOfDate.remove(listOfRentals.indexOf(itemIn));
+        itemReturned+=1;
+        return itemIn.getFees();
+    }
+
+
 }

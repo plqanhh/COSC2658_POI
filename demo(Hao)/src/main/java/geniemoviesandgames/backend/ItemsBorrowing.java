@@ -11,7 +11,7 @@ import static geniemoviesandgames.backend.BillCalculation.billPrinting;
 import static geniemoviesandgames.backend.BillCalculation.billPrintingForVip;
 
 public class ItemsBorrowing extends mainSystem {
-    private void borrowItemsForGuest(GuestAccount guestAccount, ArrayList<Item> itemsToBorrow) {
+    public void borrowItemsForGuest(GuestAccount guestAccount, ArrayList<Item> itemsToBorrow) {
         if (guestAccount.getItemBorrow() + itemsToBorrow.size() <= 2) {
             for (Item item : itemsToBorrow) {
                 if (item.getLoanType() == Item.LoanType.TWO_DAYS) {

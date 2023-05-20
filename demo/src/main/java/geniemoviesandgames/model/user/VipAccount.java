@@ -9,7 +9,7 @@ public class VipAccount extends account{
     protected int freeRent=0;
     protected int Points=0;
     protected final int PointsForfreeRent =100;
-    protected int PointsEachReturn =10;
+    protected final int PointsEachReturn =10;
     
     /**
      * @return int return the freeRent
@@ -42,27 +42,5 @@ public class VipAccount extends account{
         super(ID, name, address, phone, rentals,date,LevelOfServices.VIP, username, password);
     }
 
-    public void CustomerBorrow(item itemIn) {
-        if(freeRent>0){
-            freeRent--;
-        }
-        itemIn.borrowItem();
-        if (itemIn.getItemStock() != 0) {
-            itemIn.setItemStock(itemIn.getItemStock() - 1);
-            accountListOfRentals.add(itemIn);
-            itemBorrow++;
-        }
-    }
 
-    public void CustomerReturn(item itemIn) {
-        itemIn.returnItem();
-        itemIn.setItemStock(itemIn.getItemStock() + 1);
-        itemReturned++;
-        itemBorrow--;
-        Points+=PointsEachReturn;
-        if(Points == PointsForfreeRent){
-            Points=0;
-            freeRent++;
-        }
-    }
 }

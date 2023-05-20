@@ -1,6 +1,6 @@
+//TODO: edit string
 package geniemoviesandgames.backend;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import geniemoviesandgames.model.product.item;
@@ -9,8 +9,6 @@ import geniemoviesandgames.model.user.VipAccount;
 import geniemoviesandgames.model.user.guestAccount;
 import geniemoviesandgames.model.user.regularAccount;
 
-import static geniemoviesandgames.backend.BillCalculation.billPrinting;
-import static geniemoviesandgames.backend.BillCalculation.billPrintingForVip;
 
 public class ItemsBorrowing extends mainSystem {
 
@@ -21,16 +19,11 @@ public class ItemsBorrowing extends mainSystem {
                     System.out.println("Guest account cannot borrow 2-day items.");
                     continue;
                 }
-                if (i.getItemStock() > 0) {
+                if (i.getStock() > 0) {
                     i.borrowItem();
-                    gAccount.addAccountListOfRentals(i);
-                    gAccount.setItemBorrow(gAccount.getItemBorrow() + 1);
-                    // Set up rental and return day
-                    gAccount.addAccountListOfRentalsDates(LocalDate.now());
-                    gAccount.addBillToPay(i.getItemFees());
-
+                    gAccount.accBorrowItem(i);
                 } else {
-                    System.out.println("Item " + i.getItemTitle() + " is out of stock.");
+                    System.out.println("Item " + i.getTitle() + " is out of stock.");
                 }
             }
         } else {
@@ -43,16 +36,12 @@ public class ItemsBorrowing extends mainSystem {
             if (itemsToBorrow.getLoanType() == LoanType.TWO_DAY) {
                 System.out.println("Guest account cannot borrow 2-day items.");
             }
-            if (itemsToBorrow.getItemStock() > 0) {
+            if (itemsToBorrow.getStock() > 0) {
                 itemsToBorrow.borrowItem();
-                gAccount.addAccountListOfRentals(itemsToBorrow);
-                gAccount.setItemBorrow(gAccount.getItemBorrow() + 1);
-                // Set up rental and return day
-                gAccount.addAccountListOfRentalsDates(LocalDate.now());
-                gAccount.addBillToPay(itemsToBorrow.getItemFees());
+                gAccount.accBorrowItem(itemsToBorrow);
 
             } else {
-                System.out.println("Item " + itemsToBorrow.getItemTitle() + " is out of stock.");
+                System.out.println("Item " + itemsToBorrow.getTitle() + " is out of stock.");
             }
         } else {
             System.out.println("Guest account can only rent a maximum of 2 items at a time.");
@@ -61,56 +50,45 @@ public class ItemsBorrowing extends mainSystem {
 
     public static void borrowItems(regularAccount rAccount, ArrayList<item> itemsToBorrow) {
         for (item i : itemsToBorrow) {
-            if (i.getItemStock() > 0) {
+            if (i.getStock() > 0) {
                 i.borrowItem();
-                rAccount.addAccountListOfRentals(i);
-                rAccount.setItemBorrow(rAccount.getItemBorrow() + 1);
-                // Set up rental and return day
-                rAccount.addAccountListOfRentalsDates(LocalDate.now());
-                rAccount.addBillToPay(i.getItemFees());
+                rAccount.accBorrowItem(i);
             } else {
-                System.out.println("Item " + i.getItemTitle() + " is out of stock.");
+                System.out.println("Item " + i.getTitle() + " is out of stock.");
             }
         }
     }
 
     public static void borrowItems(regularAccount rAccount, item itemsToBorrow) {
 
-        if (itemsToBorrow.getItemStock() > 0) {
+        if (itemsToBorrow.getStock() > 0) {
             itemsToBorrow.borrowItem();
-            rAccount.addAccountListOfRentals(itemsToBorrow);
-            rAccount.setItemBorrow(rAccount.getItemBorrow() + 1);
-            // Set up rental and return day
-            rAccount.addAccountListOfRentalsDates(LocalDate.now());
-            rAccount.addBillToPay(itemsToBorrow.getItemFees());
+            rAccount.accBorrowItem(itemsToBorrow);
 
         } else {
-            System.out.println("Item " + itemsToBorrow.getItemTitle() + " is out of stock.");
+            System.out.println("Item " + itemsToBorrow.getTitle() + " is out of stock.");
         }
     }
 
     public static void borrowItems(VipAccount vipAccount, ArrayList<item> itemsToBorrow) {
         for (item i : itemsToBorrow) {
-            if (i.getItemStock() > 0) {
-                if (vipAccount.getFreeRent() >= 1) {
+            if (i.getStock() > 0) {
                     i.borrowItem();
-                    vipAccount.addAccountListOfRentals(i);
-                    vipAccount.setItemBorrow(vipAccount.getItemBorrow() + 1);
-                    vipAccount.setFreeRent(vipAccount.getFreeRent() - 1);
-                    System.out.println("Congratulations ! You just rented an item for free !");
-                    // Set up rental and return day
-                    i.setUpReturnDay();
-                } else {
-                    i.borrowItem();
-                    vipAccount.getAccountListOfRentals().add(item);
-                    vipAccount.setItemBorrow(vipAccount.getItemBorrow() + 1);
-                    // Set up rental and return day
-                    item.setUpReturnDay();
-                }
+                    vipAccount.accBorrowItem(i);
             } else {
-                System.out.println("Item " + item.getItemID() + " is out of stock.");
+                System.out.println("Item " + i.getID() + " is out of stock.");
             }
         }
-        billPrintingForVip(vipAccount);
+    }
+
+    public static void borrowItems(VipAccount vipAccount, item itemsToBorrow){
+
+        if (itemsToBorrow.getStock() > 0) {
+            itemsToBorrow.borrowItem();
+            vipAccount.accBorrowItem(itemsToBorrow);
+        } else {
+        System.out.println("Item " + itemsToBorrow.getID() + " is out of stock.");
+        }
     }
 }
+

@@ -10,7 +10,7 @@ abstract public class item {
         TWO_DAY, ONE_WEEK
     }
 
-    public enum status {
+    public enum Status {
         BORROWED, AVAILABLE
     }
 
@@ -18,145 +18,136 @@ abstract public class item {
         Action, Horror, Drama, Comedy
     }
 
-    protected String itemTitle;
-    protected String itemID;
-    protected int itemStock;
-    protected double itemFees;
-    protected LoanType itemLoanType;
-    protected status itemStatus = status.AVAILABLE;
-    protected Genre itemGenre;
-    protected Media_Formats itemMedia;
+    protected String title;
+    protected String ID;
+    protected int stock;
+    protected double fees;
+    protected LoanType loantype;
+    protected Status status = Status.AVAILABLE;
+    protected Genre genre;
+    protected Media_Formats media;
 
     /**
      * @return String return the itemTitle
      */
-    public String getItemTitle() {
-        return itemTitle;
+    public String getTitle() {
+        return title;
     }
 
     /**
      * @param itemTitle the itemTitle to set
      */
-    public void setItemTitle(String itemTitle) {
-        this.itemTitle = itemTitle;
+    public void setTitle(String itemTitle) {
+        this.title = itemTitle;
     }
 
     /**
      * @return String return the itemID
      */
-    public String getItemID() {
-        return itemID;
+    public String getID() {
+        return ID;
     }
 
     /**
      * @param itemID the itemID to set
      */
-    public void setItemID(String itemID) {
-        this.itemID = itemID;
+    public void setID(String itemID) {
+        this.ID = itemID;
     }
 
     /**
      * @return int return the itemCopies
      */
-    public int getItemStock() {
-        return itemStock;
+    public int getStock() {
+        return stock;
     }
 
     /**
      * @param itemCopies the itemCopies to set
      */
-    public void setItemStock(int itemCopies) {
-        this.itemStock = itemCopies;
+    public void setStock(int itemCopies) {
+        this.stock = itemCopies;
     }
 
     /**
      * @return int return the itemFees
      */
-    public double getItemFees() {
-        return itemFees;
+    public double getFees() {
+        return fees;
     }
 
     /**
      * @param itemFees the itemFees to set
      */
-    public void setItemFees(double itemFees) {
-        this.itemFees = itemFees;
+    public void setFees(double itemFees) {
+        this.fees = itemFees;
     }
 
-    /*
-     * public RentalType getRentalType() {
-     * return item;
-     * }
-     * 
-     * public void setRentalType(RentalType rentalType) {
-     * this.item = rentalType;
-     * }
-     */
     public LoanType getLoanType() {
-        return itemLoanType;
+        return loantype;
     }
 
     public void setLoanType(LoanType loanType) {
-        this.itemLoanType = loanType;
+        this.loantype = loanType;
     }
 
-    public status getStatus() {
-        return itemStatus;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatus(status itemStatus) {
-        this.itemStatus = itemStatus;
+    public void setStatus(Status itemStatus) {
+        this.status = itemStatus;
     }
 
-    public Genre getItemGenre() {
-        return itemGenre;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setItemGenre(Genre genre) {
-        this.itemGenre = genre;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
-    public Media_Formats getItemMedia() {
-        return itemMedia;
+    public Media_Formats getMedia() {
+        return media;
     }
 
-    public void setItemMedia(Media_Formats media) {
-        this.itemMedia = media;
+    public void setMedia(Media_Formats media) {
+        this.media = media;
     }
 
     public item() {
-        setItemTitle(null);
-        setItemID(null);
-        setItemStock(0);
-        setItemFees(0);
+        setTitle(null);
+        setID(null);
+        setStock(0);
+        setFees(0);
     }
 
     public item(String ID, String title, Media_Formats media, LoanType loanType, int stocks, Double fees, Genre genre) {
-        setItemTitle(title);
-        setItemID(ID);
+        setTitle(title);
+        setID(ID);
         if (stocks > 0) {
-            setStatus(status.AVAILABLE);
+            setStatus(Status.AVAILABLE);
         } else {
-            setStatus(status.BORROWED);
+            setStatus(Status.BORROWED);
         }
-        setItemMedia(media);
-        setItemStock(stocks);
-        setItemFees(fees);
+        setMedia(media);
+        setStock(stocks);
+        setFees(fees);
         setLoanType(loanType);
-        setItemGenre(genre);
+        setGenre(genre);
     }
 
     public void borrowItem() {
-        this.itemStock = this.itemStock -1 ;
-        if (this.itemStock == 0) {
-            setStatus(status.BORROWED);
+        this.stock = this.stock -1 ;
+        if (this.stock == 0) {
+            setStatus(Status.BORROWED);
         }
     }
 
     public void returnItem() {
-        this.itemStock = this.itemStock + 1;
-        if (this.itemStock != 0) {
-            setStatus(status.AVAILABLE);
+        this.stock = this.stock + 1;
+        if (this.stock != 0) {
+            setStatus(Status.AVAILABLE);
         }
     }
 }
