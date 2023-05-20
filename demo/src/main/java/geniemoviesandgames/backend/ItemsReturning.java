@@ -37,7 +37,7 @@ public class ItemsReturning extends mainSystem {
             regularAccount.getListOfRentals().remove(item);
             regularAccount.setItemReturned(regularAccount.getItemReturned() + 1);
             // Check if they return the items on time
-
+            itemReturnCheck(regularAccount, item);
             // Check if regular customer is eligible for promotion to VIP customer
             if (regularAccount.getItemReturned() > 5) {
                 regularAccount.setPromoteReady(true);
