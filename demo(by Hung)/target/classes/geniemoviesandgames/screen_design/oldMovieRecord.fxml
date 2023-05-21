@@ -14,14 +14,13 @@
    <center>
       <AnchorPane prefHeight="233.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="movieTableView" layoutY="28.0" prefHeight="274.0" prefWidth="750.0">
+            <TableView fx:id="movieTableView" layoutX="96.0" layoutY="28.0" prefHeight="274.0" prefWidth="654.0">
               <columns>
-                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="titleColumn" prefWidth="219.99999237060547" text="Title" />
-                  <TableColumn fx:id="typeColumn" prefWidth="110.4000244140625" text="2DayLoan" />
-                  <TableColumn fx:id="copyColumn" prefWidth="109.60000610351562" text="Copies" />
-                  <TableColumn fx:id="feeColumn" minWidth="0.0" text="Fees" />
-                  <TableColumn fx:id="genreColumn" prefWidth="156.7999267578125" text="Genre" />
+                <TableColumn fx:id="idColumn" prefWidth="101.60000610351562" text="ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="222.3999786376953" text="Title" />
+                  <TableColumn fx:id="typeColumn" prefWidth="135.20001220703125" text="2DayLoan" />
+                  <TableColumn fx:id="copyColumn" prefWidth="102.4000244140625" text="Copies" />
+                  <TableColumn fx:id="feeColumn" minWidth="0.0" prefWidth="92.7999267578125" text="Fees" />
               </columns>
             </TableView>
          </children></AnchorPane>
