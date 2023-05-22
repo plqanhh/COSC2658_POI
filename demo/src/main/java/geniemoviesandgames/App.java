@@ -37,8 +37,8 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         // Perform any necessary cleanup or save operations here
-        mainSystem.saveItemsToFile();
-        mainSystem.saveAccountsToFile();
+        /* mainSystem.saveItemsToFile();
+        mainSystem.saveAccountsToFile(); */
         System.out.println("Application stopped");
     }
 

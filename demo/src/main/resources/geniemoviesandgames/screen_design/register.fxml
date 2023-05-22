@@ -45,7 +45,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Text fx:id="warningText" layoutX="42.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="4.0">
+            <Text fx:id="warningText" layoutX="42.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="493.0">
                <font>
                   <Font size="15.0" />
                </font>

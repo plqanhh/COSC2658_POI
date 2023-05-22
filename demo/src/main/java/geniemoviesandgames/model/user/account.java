@@ -127,6 +127,20 @@ abstract public class account {
         return listOfDate;
     }
 
+    public LocalDate getDate(item itemIn){
+        if(listOfRentals.contains(itemIn)){
+    
+            return listOfDate.get(listOfRentals.indexOf(itemIn));
+        }
+        else{return null;}
+    }
+
+    public void setDate(item itemIn,LocalDate date){
+        if(listOfRentals.contains(itemIn)){
+            listOfDate.set(listOfRentals.indexOf(itemIn),date);
+        }
+    }
+
     public void setListOfDates(ArrayList<LocalDate> dateList){
         if (dateList != null) {
             listOfDate.clear();
@@ -194,13 +208,7 @@ abstract public class account {
         this.itemReturned = itemReturned;
     }
 
-    public LocalDate getDate(item itemIn){
-        if(listOfRentals.contains(itemIn)==true){
-    
-            return listOfDate.get(listOfRentals.indexOf(itemIn));
-        }
-        else{return null;}
-    }
+
     
     public void accBorrowItem(item itemIn){
         itemBorrow++;

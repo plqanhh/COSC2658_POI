@@ -3,10 +3,10 @@ package geniemoviesandgames.backend;
 import geniemoviesandgames.model.product.item;
 import geniemoviesandgames.model.user.account;
 
-public class searchOption extends mainSystem{
+public class searchOption {
     
     public static item searchItemByID(String id) {
-        for (item i : listOfItems) {
+        for (item i : mainSystem.getListOfItems()) {
             if ((i.getID()).equals(id)) {
                 return i;
             }
@@ -15,7 +15,7 @@ public class searchOption extends mainSystem{
     }
 
     public static account searchAccountByID(String id) {
-        for (account a : listOfAccounts) {
+        for (account a : mainSystem.getListOfAccounts()) {
             if ((a.getID()).equals(id)) {
                 return a;
             }
@@ -24,7 +24,11 @@ public class searchOption extends mainSystem{
     }
 
     public static item searchItemByTitle(String name) {
+<<<<<<< HEAD
         for (item i : listOfItems) {
+=======
+        for (item i : mainSystem.getListOfItems()) {
+>>>>>>> 636c718d7532b2c814328ab7ad86d43c967dcc8d
             if ((i.getTitle()).equals(name)) {
                 return i;
             }
@@ -33,7 +37,7 @@ public class searchOption extends mainSystem{
     }
 
     public static account searchAccountByName(String name) {
-        for (account a : listOfAccounts) {
+        for (account a : mainSystem.getListOfAccounts()) {
             if ((a.getFullname()).equals(name)) {
                 return a;
             }

@@ -42,5 +42,43 @@ public class VipAccount extends account{
         super(ID, name, address, phone, rentals,date,LevelOfServices.VIP, username, password);
     }
 
+    @Override
+    public void accBorrowItem(item itemIn){
+        itemBorrow++;
+        listOfRentals.add(itemIn);
+        listOfDate.add(LocalDate.now());
+        System.out.println("add successfully");
+    }
 
+
+    @Override
+    public void accBorrowItem(item itemIn,LocalDate date){
+        listOfRentals.add(itemIn);
+        listOfDate.add(date);
+        itemBorrow++;
+        System.out.println("add successfully");
+    }
+
+    @Override
+    public void accBorrowItem(ArrayList<item> listItemIn,ArrayList<LocalDate> listdates){
+
+        listOfRentals.addAll(listItemIn);
+        listOfDate.addAll(listdates);
+        itemBorrow+=listItemIn.size();
+        System.out.println("add successfully");
+    }
+
+    @Override
+    public double accReturnItem(item itemIn){
+
+        listOfRentals.remove(itemIn);
+        listOfDate.remove(listOfRentals.indexOf(itemIn));
+        itemReturned+=1;
+        Points+=PointsEachReturn;
+        System.out.println("Congratulations ! You earned 10 reward points !");
+        if(Points == PointsForfreeRent){
+            freeRent++;
+        }
+        return itemIn.getFees();
+    }
 }

@@ -26,7 +26,8 @@ public class LoginController extends Switchingscence {
             warningText.setText("Please enter username or password");
         }else if(usernameInputTextField.getText().equals("123") ==true && passwordInput.getText().equals("123") ==true){
             switchToAdmin();
-        } else if(mainSystem.acountLogin(usernameInputTextField.getText(), passwordInput.getText()) == true){
+        } else if(mainSystem.acountLogin(usernameInputTextField.getText(), passwordInput.getText()) != null){
+            menuController.setMainAcc(mainSystem.acountLogin(usernameInputTextField.getText(), passwordInput.getText()));
             switchToMenu();
         }else{
             warningText.setText("You enter the wrong username or password");

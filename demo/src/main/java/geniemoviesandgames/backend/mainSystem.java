@@ -23,15 +23,9 @@ import java.time.LocalDate;
 
 public class mainSystem {
 
-    public enum accountPart{
-        ID,Name,Address,Phone,Number_of_rentals,customer_type, username, password
-    }
-    public enum itemPart{
-        ID,Title,Media_Formats,Loan_type,copies,rental_fee,genre
-    }
 
-    protected static  ArrayList<item> listOfItems = new ArrayList<>();
-    protected static ArrayList<account> listOfAccounts = new ArrayList<>();
+    protected static ArrayList<item> listOfItems ;
+    protected static ArrayList<account> listOfAccounts ;
     protected final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
     protected final static String AccountFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
 
@@ -43,32 +37,50 @@ public class mainSystem {
         return listOfAccounts;
     }
 
-    public static void addItemListOfItems(item itemIn) {
+    public static void addItem(item itemIn) {
         listOfItems.add(itemIn);
+        saveItemsToFile();
     }
 
-    public static void addAccountlistOfAccounts(account accin) {
+    public static void addAccount(account accin) {
         listOfAccounts.add(accin);
+        saveAccountsToFile();
     }
 
-    public static void removeItemListOfItems(item itemIn){
+    public static void removeItem(item itemIn){
         listOfItems.remove(itemIn);
+        saveItemsToFile();
     }
 
-    public static void removeAccountListOfAccount(account accIn){
+    public static void removeAccount(account accIn){
         listOfAccounts.remove(accIn);
+        saveItemsToFile();
     }
 
-    public static Boolean acountLogin(String username, String password) {
+    public static void updateAccount(account oldAcc,account newAcc){
+        int a = listOfAccounts.indexOf(oldAcc);
+        listOfAccounts.set(a, newAcc);
+        saveAccountsToFile();
+    }
+
+    public static void updateItem(item oldItem,item newItem){
+        int a = listOfItems.indexOf(oldItem);
+        listOfItems.set(a, newItem);
+        saveItemsToFile();
+    }
+
+    public static account acountLogin(String username, String password) {
         for (account a : listOfAccounts) {
             if ((a.getUsername()).equals(username) && a.getPassword().equals(password)) {
-                return true;
+                return a;
             }
         }
-        return false;
+        return null;
     }
 
     public static void readItemsFromFile() {
+        
+        listOfItems = new ArrayList<>();
         FileReader ItemFiles;
         BufferedReader br;
         try {
@@ -98,19 +110,19 @@ public class mainSystem {
                 switch (itemMedia) {
                     case Game:
                         itemGame g1 = new itemGame(itemID, itemTitle, itemLoanType, itemCopies, itemFee);
-                        listOfItems.add(g1);
+                        mainSystem.addItem(g1);
                         break;
                     case Record:
                         itemGenre = Genre.valueOf(fields[6]);
                         itemRecord m1 = new itemRecord(itemID, itemTitle, itemLoanType, itemCopies, itemFee,
                                 itemGenre);
-                        listOfItems.add(m1);
+                        mainSystem.addItem(m1);
                         break;
                     case DVD:
                         itemGenre = Genre.valueOf(fields[6]);
                         itemDVD d1 = new itemDVD(itemID, itemTitle, itemLoanType, itemCopies, itemFee,
                                 itemGenre);
-                        listOfItems.add(d1);
+                        mainSystem.addItem(d1);
                         break;
                 }
             }
@@ -121,6 +133,8 @@ public class mainSystem {
     }
 
     public static void readAccountsFromFile() {
+
+        listOfAccounts = new ArrayList<>();
         FileReader customerFile;
         BufferedReader br1;
         try {
@@ -142,17 +156,17 @@ public class mainSystem {
                         switch (services) {
                             case VIP:
                                 VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
-                                listOfAccounts.add(v1);
+                                mainSystem.addAccount(v1);
                                 break;
                             case Guest:
                                 guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn,itemOwnDate, username,
                                         password);
-                                listOfAccounts.add(g1);
+                                mainSystem.addAccount(g1);
                                 break;
                             case Regular:
                                 regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn,itemOwnDate, username,
                                         password);
-                                listOfAccounts.add(r1);
+                                mainSystem.addAccount(r1);
                                 break;
                         }
                         services = null;
@@ -181,15 +195,15 @@ public class mainSystem {
             switch (services) {
                 case VIP:
                     VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
-                    listOfAccounts.add(v1);
+                    mainSystem.addAccount(v1);
                     break;
                 case Guest:
                     guestAccount g1 = new guestAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
-                    listOfAccounts.add(g1);
+                    mainSystem.addAccount(g1);
                     break;
                     case Regular:
                     regularAccount r1 = new regularAccount(id, name, address, phone, itemOwn,itemOwnDate, username, password);
-                    listOfAccounts.add(r1);
+                    mainSystem.addAccount(r1);
                     break;
                 default:
                     break;
