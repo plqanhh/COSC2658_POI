@@ -23,15 +23,9 @@ import java.time.LocalDate;
 
 public class mainSystem {
 
-    public enum accountPart{
-        ID,Name,Address,Phone,Number_of_rentals,customer_type, username, password
-    }
-    public enum itemPart{
-        ID,Title,Media_Formats,Loan_type,copies,rental_fee,genre
-    }
 
-    protected static  ArrayList<item> listOfItems = new ArrayList<>();
-    protected static ArrayList<account> listOfAccounts = new ArrayList<>();
+    protected static ArrayList<item> listOfItems ;
+    protected static ArrayList<account> listOfAccounts;
     protected final static String itemFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/items.txt";
     protected final static String AccountFilePath = "../GenieMoviesAndGames/demo/src/main/resources/geniemoviesandgames/customers.txt";
 
@@ -43,20 +37,36 @@ public class mainSystem {
         return listOfAccounts;
     }
 
-    public static void addItemListOfItems(item itemIn) {
+    public static void addItem(item itemIn) {
         listOfItems.add(itemIn);
+        saveItemsToFile();
     }
 
-    public static void addAccountlistOfAccounts(account accin) {
+    public static void addAccount(account accin) {
         listOfAccounts.add(accin);
+        saveAccountsToFile();
     }
 
-    public static void removeItemListOfItems(item itemIn){
+    public static void removeItem(item itemIn){
         listOfItems.remove(itemIn);
+        saveItemsToFile();
     }
 
-    public static void removeAccountListOfAccount(account accIn){
+    public static void removeAccount(account accIn){
         listOfAccounts.remove(accIn);
+        saveItemsToFile();
+    }
+
+    public static void updateAccount(account oldAcc,account newAcc){
+        int a = listOfAccounts.indexOf(oldAcc);
+        listOfAccounts.set(a, newAcc);
+        saveAccountsToFile();
+    }
+
+    public static void updateItem(item oldItem,item newItem){
+        int a = listOfItems.indexOf(oldItem);
+        listOfItems.set(a, newItem);
+        saveItemsToFile();
     }
 
     public static Boolean acountLogin(String username, String password) {

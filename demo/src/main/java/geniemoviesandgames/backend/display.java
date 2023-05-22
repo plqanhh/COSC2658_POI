@@ -11,16 +11,16 @@ import geniemoviesandgames.model.user.account.LevelOfServices;
 public class display {
 
     public static ArrayList<account> allAccount(){
-        return mainSystem.listOfAccounts;
+        return mainSystem.getListOfAccounts();
     }
 
     public static ArrayList<item> allItem(){
-        return mainSystem.listOfItems;
+        return mainSystem.getListOfItems();
     }
 
     public static ArrayList<item> allDVD(){
         ArrayList<item> sortedList = new ArrayList<>();
-        for(item i: mainSystem.listOfItems){
+        for(item i: mainSystem.getListOfItems()){
             if (i.getMedia() == Media_Formats.DVD){
                  sortedList.add(i);
             }
@@ -30,7 +30,7 @@ public class display {
 
     public static ArrayList<item> allGame(){
         ArrayList<item> sortedList = new ArrayList<>();
-        for(item i: mainSystem.listOfItems){
+        for(item i: mainSystem.getListOfItems()){
             if (i.getMedia() == Media_Formats.Game){
                  sortedList.add(i);
             }
@@ -40,7 +40,7 @@ public class display {
 
     public static ArrayList<item> allRecord(){
         ArrayList<item> sortedList = new ArrayList<>();
-        for(item i: mainSystem.listOfItems){
+        for(item i: mainSystem.getListOfItems()){
             if (i.getMedia() == Media_Formats.Record){
                  sortedList.add(i);
             }
@@ -50,7 +50,7 @@ public class display {
 
     public static ArrayList<account> allGuest(){
         ArrayList<account> sortedList = new ArrayList<>();
-        for(account a: mainSystem.listOfAccounts){
+        for(account a: mainSystem.getListOfAccounts()){
             if (a.getLevelOfServices() == LevelOfServices.Guest){
                  sortedList.add(a);
             }
@@ -60,7 +60,7 @@ public class display {
 
     public static ArrayList<account> allRegular(){
         ArrayList<account> sortedList = new ArrayList<>();
-        for(account a: mainSystem.listOfAccounts){
+        for(account a: mainSystem.getListOfAccounts()){
             if (a.getLevelOfServices() == LevelOfServices.Regular){
                  sortedList.add(a);
             }
@@ -70,7 +70,7 @@ public class display {
 
     public static ArrayList<account> allVip(){
         ArrayList<account> sortedList = new ArrayList<>();
-        for(account a: mainSystem.listOfAccounts){
+        for(account a: mainSystem.getListOfAccounts()){
             if (a.getLevelOfServices() == LevelOfServices.VIP){
                  sortedList.add(a);
             }
@@ -80,7 +80,7 @@ public class display {
 
     public static ArrayList<item> allNocopies(){
         ArrayList<item> sortedList = new ArrayList<>();
-        for(item i: mainSystem.listOfItems){
+        for(item i: mainSystem.getListOfItems()){
             if (i.getStock() == 0){
                  sortedList.add(i);
             }

@@ -25,11 +25,11 @@ public class newUserController extends Switchingscence {
                 || addressTextfield.getText().isEmpty() == true) {
             warningText.setText("Please enter the missing infomation!");
         } else {
-            String makeID = "C" + String.format("%03d", mainSystem.getListOfAccounts().size());
+            String makeID = "C" + String.format("%03d", mainSystem.getListOfAccounts().size()+1);
             guestAccount g2 = new guestAccount(makeID, nameTextfield.getText(), addressTextfield.getText(),
                     phoneTextfield.getText(),null, null, registerController.getUsername(),
                     registerController.getPassword());
-            mainSystem.addAccountlistOfAccounts(g2);
+            mainSystem.addAccount(g2);
             menuController.setMainAcc(g2);
             switchToMenu();
         }
