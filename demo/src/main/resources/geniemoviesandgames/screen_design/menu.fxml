@@ -8,18 +8,24 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="geniemoviesandgames.controller.menuController">
    <children>
-      <Pane prefHeight="200.0" prefWidth="200.0">
+      <Pane fx:id="upPane" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Text layoutX="238.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, ">
+            <Text fx:id="welcomeText" layoutX="238.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, ">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <Button fx:id="logOutButton" layoutX="249.0" layoutY="70.0" mnemonicParsing="false" onAction="#switchToLogin" text="Log out">
+            <Button fx:id="logOutButton" layoutX="184.0" layoutY="70.0" mnemonicParsing="false" onAction="#switchToLogin" text="Log out">
                <font>
                   <Font size="15.0" />
                </font></Button>
+            <Button layoutX="307.0" layoutY="73.0" mnemonicParsing="false" onAction="#beginAction" text="set text">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
+      <Pane fx:id="downPane" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </VBox>
