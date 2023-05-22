@@ -1,7 +1,5 @@
 package geniemoviesandgames.model.product;
 
-import java.util.ArrayList;
-
 abstract public class item {
 
     public enum Media_Formats {
