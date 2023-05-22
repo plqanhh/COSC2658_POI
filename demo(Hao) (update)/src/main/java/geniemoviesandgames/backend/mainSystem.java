@@ -139,16 +139,16 @@ public class mainSystem {
                 }
                 switch (services) {
                     case VIP:
-                        VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn, username, password);
-                        listOfAccounts.add(v1);
+                        //VipAccount v1 = new VipAccount(id, name, address, phone, itemOwn, username, password);
+                       // listOfAccounts.add(v1);
                         break;
                     case Guest:
-                        GuestAccount g1 = new GuestAccount(id, name, address, phone, itemOwn, username, password);
-                        listOfAccounts.add(g1);
+                      //  GuestAccount g1 = new GuestAccount(id, name, address, phone, itemOwn, username, password);
+                       // listOfAccounts.add(g1);
                         break;
                     case Regular:
-                        RegularAccount r1 = new RegularAccount(id, name, address, phone, itemOwn, username, password);
-                        listOfAccounts.add(r1);
+                       // RegularAccount r1 = new RegularAccount(id, name, address, phone, itemOwn, username, password);
+                       // listOfAccounts.add(r1);
                         break;
                 }
             }
