@@ -148,4 +148,14 @@ public class display {
         return sortedList;
     }
 
+
+    public static void main(String[] args){
+        ArrayList<Integer> numlist = new ArrayList<>();
+        numlist.add(0);
+        numlist.add(1);
+        numlist.add(2);
+        numlist.add(3);
+        numlist.set(2,4);
+        System.out.println(numlist);
+    }
 }

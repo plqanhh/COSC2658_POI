@@ -23,7 +23,7 @@ public class searchOption extends mainSystem{
         return null;
     }
 
-    public static item searchItemByName(String name) {
+    public static item searchItemByTitle(String name) {
         for (item i : listOfItems) {
             if ((i.getTitle()).equals(name)) {
                 return i;
