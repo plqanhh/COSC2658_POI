@@ -48,12 +48,12 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text layoutX="614.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="= 0.0$">
+            <Text fx:id="priceText" layoutX="614.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="= 0.0$">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <Button layoutX="613.0" layoutY="103.0" mnemonicParsing="false" text="Pay">
+            <Button fx:id="payButton" layoutX="613.0" layoutY="103.0" mnemonicParsing="false" onAction="#paying" text="Pay">
                <font>
                   <Font size="15.0" />
                </font>

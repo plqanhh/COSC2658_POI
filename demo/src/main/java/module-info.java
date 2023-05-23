@@ -15,6 +15,7 @@ module geniemoviesandgames {
     opens geniemoviesandgames.model.user to javafx.fxml;
     exports geniemoviesandgames.model.user;
 
-
+    opens geniemoviesandgames.model to javafx.fxml;
+    exports geniemoviesandgames.model;
 
 }

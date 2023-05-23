@@ -12,7 +12,7 @@ public class returnCheck {
     public enum deadLine{
         LATE,EARLY,ON_TIME,
     }
-    protected deadLine userdeadLine;
+    protected deadLine userDeadline;
     protected LocalDate dateBorrow;
     protected LocalDate dateReturn;
     
@@ -24,17 +24,17 @@ public class returnCheck {
     }
 
     public LocalDate getDateReturn(){
-        return dateBorrow;
+        return dateReturn;
     }
     public void setDateReturn(LocalDate date){
-        dateBorrow = date;
+        dateReturn = date;
     }
 
-    public deadLine getUserDeadLine(){
-        return userdeadLine;
+    public deadLine getUserDeadline(){
+        return userDeadline;
     }
-    public void setUserDeadLine(deadLine userDeadLine){
-        this.userdeadLine = userDeadLine;
+    public void setUserDeadline(deadLine userDeadLine){
+        this.userDeadline = userDeadLine;
     }
     
     public returnCheck(account accIn, item itemIn) {
@@ -49,17 +49,17 @@ public class returnCheck {
             
         }
 
-        int compareValue = dateBorrow.compareTo(dateReturn);
+        int compareValue = dateReturn.compareTo(LocalDate.now());
         System.out.println(compareValue);
         if (compareValue > 0) {
             System.out.println("You are late");
-            setUserDeadLine(deadLine.LATE);
+            setUserDeadline(deadLine.LATE);
         } else if (compareValue < 0) {
             System.out.println("You are early");
-            setUserDeadLine(deadLine.EARLY);
+            setUserDeadline(deadLine.EARLY);
         } else {
             System.out.println("You are just on time");
-            setUserDeadLine(deadLine.ON_TIME);
+            setUserDeadline(deadLine.ON_TIME);
         }
     }
     
