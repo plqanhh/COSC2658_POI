@@ -50,7 +50,6 @@ public class returnCheck {
         }
 
         int compareValue = dateReturn.compareTo(LocalDate.now());
-        System.out.println(compareValue);
         if (compareValue > 0) {
             System.out.println("You are late");
             setUserDeadline(deadLine.LATE);

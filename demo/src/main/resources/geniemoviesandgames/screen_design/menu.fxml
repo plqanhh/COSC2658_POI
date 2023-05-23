@@ -18,7 +18,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Account">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#switchToYourProfile" text="Your profile" />
+              <MenuItem mnemonicParsing="false" onAction="#editProfileButton" text="Your profile" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Item">

@@ -36,9 +36,18 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="nameTextfield" layoutX="50.0" layoutY="99.0" prefHeight="38.0" prefWidth="511.0" />
-            <TextField fx:id="phoneTextfield" layoutX="50.0" layoutY="174.0" prefHeight="38.0" prefWidth="511.0" />
-            <TextField fx:id="addressTextfield" layoutX="50.0" layoutY="245.0" prefHeight="38.0" prefWidth="511.0" />
+            <TextField fx:id="nameTextfield" layoutX="50.0" layoutY="99.0" prefHeight="38.0" prefWidth="511.0">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
+            <TextField fx:id="phoneTextfield" layoutX="50.0" layoutY="174.0" prefHeight="38.0" prefWidth="511.0">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
+            <TextField fx:id="addressTextfield" layoutX="50.0" layoutY="245.0" prefHeight="38.0" prefWidth="511.0">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
          </children>
       </Pane>
       <Pane prefHeight="185.0" prefWidth="600.0">

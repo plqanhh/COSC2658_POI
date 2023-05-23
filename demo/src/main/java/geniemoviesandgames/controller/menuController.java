@@ -1,5 +1,7 @@
 package geniemoviesandgames.controller;
 
+import java.io.IOException;
+
 import geniemoviesandgames.Switchingscence;
 import geniemoviesandgames.backend.display;
 import geniemoviesandgames.model.returnCheck;
@@ -21,6 +23,9 @@ public class menuController extends Switchingscence {
 
     public static void setMainAcc(account acc) {
         mainAcc = acc;
+    }
+    public static account getMainAcc() {
+        return mainAcc;
     }
 
     @FXML private Pane downPane;
@@ -90,6 +95,10 @@ public class menuController extends Switchingscence {
     }
     @FXML public void paying(){
         priceText.setText("= 0.0");
+    }
+    @FXML public void editProfileButton() throws IOException{
+        yourProfileController.setMainAcc(mainAcc);
+        switchToYourProfile();
     }
     public void initialize() {
         calDate();

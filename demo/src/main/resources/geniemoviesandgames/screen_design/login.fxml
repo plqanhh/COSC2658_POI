@@ -32,7 +32,10 @@
       </Pane>
       <Pane fx:id="passwordPane" prefHeight="108.0" prefWidth="472.0">
          <children>
-            <PasswordField fx:id="passwordInput" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="456.0" />
+            <PasswordField fx:id="passwordInput" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="456.0">
+               <font>
+                  <Font size="15.0" />
+               </font></PasswordField>
             <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font size="15.0" />

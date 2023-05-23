@@ -2,6 +2,7 @@ package geniemoviesandgames;
 
 import java.io.IOException;
 
+import geniemoviesandgames.controller.menuController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 
@@ -23,6 +24,7 @@ public class Switchingscence extends App {
 
     @FXML
     protected void switchToLogin() throws IOException {
+        menuController.setMainAcc(null);
         scene = new Scene(loadFXML("login"));
         oldStage.setScene(scene);
         oldStage.show();
