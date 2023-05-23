@@ -83,11 +83,11 @@ abstract public class item {
         this.fees = itemFees;
     }
 
-    public LoanType getLoanType() {
+    public LoanType getLoantype() {
         return loantype;
     }
 
-    public void setLoanType(LoanType loanType) {
+    public void setLoantype(LoanType loanType) {
         this.loantype = loanType;
     }
 
@@ -133,7 +133,7 @@ abstract public class item {
         setMedia(media);
         setStock(stocks);
         setFees(fees);
-        setLoanType(loanType);
+        setLoantype(loanType);
         setGenre(genre);
     }
 

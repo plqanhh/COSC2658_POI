@@ -24,11 +24,7 @@ public class searchOption {
     }
 
     public static item searchItemByTitle(String name) {
-<<<<<<< HEAD
-        for (item i : listOfItems) {
-=======
         for (item i : mainSystem.getListOfItems()) {
->>>>>>> 636c718d7532b2c814328ab7ad86d43c967dcc8d
             if ((i.getTitle()).equals(name)) {
                 return i;
             }

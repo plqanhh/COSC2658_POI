@@ -12,7 +12,7 @@ public class borrowing {
     public borrowing(guestAccount accIn, item itemsToBorrow) {
         guestAccount accOut = accIn;
         if (accOut.getItemBorrow() + 1 <= 2) {
-            if (itemsToBorrow.getLoanType() == LoanType.TWO_DAY) {
+            if (itemsToBorrow.getLoantype() == LoanType.TWO_DAY) {
                 System.out.println("Guest account cannot borrow 2-day items.");
             }
             if (itemsToBorrow.getStock() > 0) {

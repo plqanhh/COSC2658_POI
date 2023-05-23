@@ -237,7 +237,7 @@ public class mainSystem {
     public static String itemToString(item itemIn) {
         String phrase = "";
         phrase = itemIn.getID() + "," + itemIn.getTitle() + "," + itemIn.getMedia() + ","
-                + itemIn.getLoanType() + "," + itemIn.getStock() + "," + itemIn.getFees();
+                + itemIn.getLoantype() + "," + itemIn.getStock() + "," + itemIn.getFees();
         if (itemIn.getGenre() != null) {
             phrase = phrase + "," + itemIn.getGenre().toString();
         }

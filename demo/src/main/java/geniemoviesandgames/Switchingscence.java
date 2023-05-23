@@ -41,4 +41,10 @@ public class Switchingscence extends App {
         oldStage.setScene(scene);
         oldStage.show();
     }
+    @FXML
+    protected void switchToYourProfile() throws IOException {    
+        scene = new Scene(loadFXML("YourProfile"));
+        oldStage.setScene(scene);
+        oldStage.show();
+    }
 }

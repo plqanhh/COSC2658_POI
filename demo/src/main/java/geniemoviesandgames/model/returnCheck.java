@@ -8,26 +8,48 @@ import geniemoviesandgames.model.user.account;
 
 public class returnCheck {
 
+
     public enum deadLine{
         LATE,EARLY,ON_TIME,
     }
     protected deadLine userdeadLine;
+    protected LocalDate dateBorrow;
+    protected LocalDate dateReturn;
     
+    public LocalDate getDateBorrow(){
+        return dateBorrow;
+    }
+    public void setDateBorrow(LocalDate date){
+        dateBorrow = date;
+    }
+
+    public LocalDate getDateReturn(){
+        return dateBorrow;
+    }
+    public void setDateReturn(LocalDate date){
+        dateBorrow = date;
+    }
+
     public deadLine getUserDeadLine(){
         return userdeadLine;
     }
     public void setUserDeadLine(deadLine userDeadLine){
         this.userdeadLine = userDeadLine;
     }
+    
     public returnCheck(account accIn, item itemIn) {
-        LocalDate today = LocalDate.now();
-        LocalDate dayToReturn = accIn.getDate(itemIn);
-        if (itemIn.getLoanType() == LoanType.ONE_WEEK) {
-            dayToReturn.plusDays(7);
-        } else if (itemIn.getLoanType() == LoanType.TWO_DAY) {
-            dayToReturn.plusDays(2);
+        if(accIn.getListOfRentals().contains(itemIn)){
+            int a = accIn.getListOfRentals().indexOf(itemIn);
+            setDateBorrow(accIn.getListOfDates().get(a));
+            if (itemIn.getLoantype() == LoanType.ONE_WEEK) {
+                setDateReturn(accIn.getListOfDates().get(a).plusDays(7));
+            } else if (itemIn.getLoantype() == LoanType.TWO_DAY) {
+                setDateReturn(accIn.getListOfDates().get(a).plusDays(2));
+            }
+            
         }
-        int compareValue = today.compareTo(dayToReturn);
+
+        int compareValue = dateBorrow.compareTo(dateReturn);
         System.out.println(compareValue);
         if (compareValue > 0) {
             System.out.println("You are late");

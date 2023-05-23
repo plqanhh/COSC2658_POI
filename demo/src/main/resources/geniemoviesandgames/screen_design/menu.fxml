@@ -1,31 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="geniemoviesandgames.controller.menuController">
-   <children>
-      <Pane fx:id="upPane" prefHeight="200.0" prefWidth="200.0">
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="geniemoviesandgames.controller.menuController">
+   <top>
+      <MenuBar prefHeight="25.0" prefWidth="672.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Account">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#switchToYourProfile" text="Your profile" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Item">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#displayAllItem" text="All item" />
+                  <MenuItem mnemonicParsing="false" onAction="#displayAllDVD" text="DVD" />
+                  <MenuItem mnemonicParsing="false" onAction="#displayAllGame" text="Game" />
+                  <MenuItem mnemonicParsing="false" onAction="#displayAllRecord" text="Record" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Other">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#switchToLogin" text="Log Out" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TableView fx:id="displayItemTable" prefHeight="265.0" prefWidth="514.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="158.0" prefWidth="714.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="welcomeText" layoutX="238.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, ">
+            <Text layoutX="14.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You Rent:">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <Button fx:id="logOutButton" layoutX="184.0" layoutY="70.0" mnemonicParsing="false" onAction="#switchToLogin" text="Log out">
+            <Text layoutX="614.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="= 0.0$">
                <font>
                   <Font size="15.0" />
-               </font></Button>
-            <Button layoutX="307.0" layoutY="73.0" mnemonicParsing="false" onAction="#beginAction" text="set text">
+               </font>
+            </Text>
+            <Button layoutX="613.0" layoutY="103.0" mnemonicParsing="false" text="Pay">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <TableView fx:id="displayRentTable" layoutX="115.0" prefHeight="155.0" prefWidth="100.0">
+              <columns>
+                <TableColumn prefWidth="100.0" text="Item" />
+              </columns>
+            </TableView>
+            <TableView fx:id="displayRentDateTable" layoutX="215.0" prefHeight="155.0" prefWidth="300.0">
+              <columns>
+                  <TableColumn fx:id="dateBorrowCol" prefWidth="100.0" text="Date Borrow" />
+                  <TableColumn fx:id="dateReturnCol" prefWidth="100.0" text="Date return" />
+                  <TableColumn fx:id="dateStatusCol" prefWidth="100.0" text="Status" />
+              </columns>
+            </TableView>
+            <Button layoutX="528.0" layoutY="57.0" mnemonicParsing="false" text="Return">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
          </children>
-      </Pane>
-      <Pane fx:id="downPane" prefHeight="200.0" prefWidth="200.0" />
-   </children>
-</VBox>
+      </AnchorPane>
+   </bottom>
+   <right>
+      <AnchorPane fx:id="infoPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="61.0" layoutY="161.0" mnemonicParsing="false" text="Rent">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Text fx:id="welcomeText" layoutX="57.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welcome">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your are currently a: ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fx:id="statusText" layoutX="65.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="status">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
