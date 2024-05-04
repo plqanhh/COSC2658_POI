@@ -63,7 +63,10 @@ public class ArrayList<T> implements List<T>  {
         }
         return false;
     }
-
+    public void add(T value) {
+        items[size] = value;
+        size++;
+    }
     @Override
     public boolean insertAt(int index, T value) {
         if (index > size) {

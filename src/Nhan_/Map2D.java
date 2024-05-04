@@ -1,15 +1,16 @@
 public class Map2D{
     private Node root;
-    // private ArrayList<Node> placesList;
+    private ArrayList<Node> placesList;
+    final int maxResults = 50;
     
     public Map2D(){
         root = null;
-        // placesList = new ArrayList<>();
+        placesList = new ArrayList<>();
     }
     public Node add(Place place){
         if(root == null){
             root = new Node(place, null);
-            // placesList.insertAt(placesList.size(), root);
+            placesList.insertAt(placesList.size(), root);
             root.isRed = false; // Root is always black
             return root;
         }
@@ -32,7 +33,7 @@ public class Map2D{
                 if(current.left == null){
                     Node newPlace = new Node(place, parentNode);
                     current.left = newPlace ;
-                    // placesList.insertAt(placesList.size()-1, newPlace);
+                    placesList.insertAt(placesList.size()-1, newPlace);
                     insertFixup(newPlace);
                     return newPlace;
                 }
@@ -41,7 +42,7 @@ public class Map2D{
                 if(current.right == null){
                     Node newPlace = new Node(place, parentNode);
                     current.right = newPlace;
-                    // placesList.insertAt(placesList.size()-1, newPlace);
+                    placesList.insertAt(placesList.size()-1, newPlace);
                     insertFixup(newPlace);
                     return newPlace;
                 }
@@ -50,6 +51,13 @@ public class Map2D{
             useX = !useX; 
         }
         return null;
+    }
+    public ArrayList<Place> getPlacesList(){
+        ArrayList<Place> places = new ArrayList<>();
+        for(int i = 0; i < placesList.size(); i++){
+            places.insertAt(i, placesList.get(i).place);
+        }
+        return places;
     }
     private void insertFixup(Node node) {
         while (node != root && node.parent.isRed) {
@@ -259,6 +267,7 @@ public class Map2D{
         } else {
             deleteFixup(node);
             detachNode(node);
+            placesList.remove(node);
         }
     }
     
@@ -290,6 +299,7 @@ public class Map2D{
     private void removeNodeWithOneChild(Node node) {
         Node child = (node.getLeft() != null) ? node.getLeft() : node.getRight();
         transplant(node, child);
+        placesList.remove(node);
         if (!node.isRed) {
             if (child.isRed) child.isRed = false;
             else deleteFixup(child);
@@ -308,6 +318,7 @@ public class Map2D{
             successor.getRight().setParent(successor);
         }
         transplant(node, successor);
+        placesList.remove(node);
         successor.setLeft(node.getLeft());
         successor.getLeft().setParent(successor);
         successor.isRed = node.isRed;
@@ -326,35 +337,40 @@ public class Map2D{
         return curNode;
     }
 
-/*------------------------Remove Functions end----------------------------- */ 
-    // public ArrayQueue<Place> search(Position center, int width, int height, String type){
-    //     int maxResults = 50;
-    //     ArrayQueue<Place> result = new ArrayQueue<>();
-    //     int minX = center.getX() - width/2;
-    //     int maxX = center.getX() + width/2;
-    //     int minY = center.getY() - height/2;
-    //     int maxY = center.getY() + height/2;
-    //     searchNearestPlace(center, minX, maxX, minY, maxY, type, maxResults, result);
-    //     return result;
-    // }
-    // public void searchNearestPlace(Position center, int minX, int maxX, int maxY, int minY , String type, int maxResults, ArrayQueue<Place> result){
-    //     if(node == null|| result.size() >= maxResults){
-    //         return;
-    //     }
+/*------------------------Remove Functions End----------------------------- */ 
 
-    //     int x = node.place.getPosition().getX();
-    //     int y = node.place.getPosition().getY();
-
-    //     if(x > minX && x < maxX && y > minY && y < maxY){
-    //         for(String service : node.place.getServices()){
-    //             if(type == null || service.equals(type)){
-    //                 result.enQueue(node.place);
-    //                 break;
-    //             }
-    //         }
-    //     }
-
-
-    // }
+/* ------------------------Search Functions Start----------------------------- */
+    public ArrayQueue<Place> search(Position center, int width, int height, String type){
+        ArrayQueue<Place> listOfAvailablePlace = new ArrayQueue<>();
+        int minX = center.getX() - width/2;
+        int maxX = center.getX() + width/2;
+        int minY = center.getY() - height/2;
+        int maxY = center.getY() + height/2;
+        searchNearestPlace(root, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
+        return listOfAvailablePlace;
+    }
+    public void searchNearestPlace(Node curNode, int minX, int maxX, int minY, int maxY , String type, int maxResults, ArrayQueue<Place> listOfAvailablePlace){
+        if(curNode == null || listOfAvailablePlace.size() > maxResults){
+            return;
+        }
+        int x = curNode.place.getPosition().getX();
+        int y = curNode.place.getPosition().getY();
+        if(x >= minX && x <= maxX && y >= minY && y <= maxY){
+            for(String service : curNode.place.getServices()){
+                if(service.equals(type)){
+                    listOfAvailablePlace.enQueue(curNode.place);
+                    break;
+                }
+            }
+        }
+       
+        if (curNode.left != null && (curNode.left.place.getPosition().getX() >= minX || curNode.left.place.getPosition().getY() >= minY)) {
+            searchNearestPlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
+        }
+        if (curNode.right != null && (curNode.right.place.getPosition().getX() <= maxX || curNode.right.place.getPosition().getY() <= maxY)) {
+            searchNearestPlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
+        }
+    }
 }
 
+/* ------------------------Search Functions End----------------------------- */
