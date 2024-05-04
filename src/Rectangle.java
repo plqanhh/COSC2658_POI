@@ -1,21 +1,24 @@
 public class Rectangle {
-    int x, y; // Top-left corner
-    int width, height;
+    int xMin, yMin, xMax, yMax;
 
-    public Rectangle(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    // Existing constructor for direct specification (keep if needed)
+    public Rectangle(int xMin, int yMin, int xMax, int yMax) {
+        this.xMin = xMin;
+        this.yMin = yMin;
+        this.xMax = xMax;
+        this.yMax = yMax;
     }
 
-    /**
-     * Checks if a given point is within the rectangle.
-     * @param point the point to check
-     * @return true if the point is inside the rectangle; false otherwise
-     */
-    public boolean contains(Point point) {
-        return point.x >= x && point.x <= x + width &&
-               point.y >= y && point.y <= y + height;
+    // New constructor to define a square from a center point and 'radius'
+    public Rectangle(Point center, int halfSideLength) {
+        this.xMin = center.getX() - halfSideLength;
+        this.yMin = center.getY() - halfSideLength;
+        this.xMax = center.getX() + halfSideLength;
+        this.yMax = center.getY() + halfSideLength;
+    }
+
+    public boolean contains(Point p) {
+        return p.getX() >= xMin && p.getX() <= xMax &&
+                p.getY() >= yMin && p.getY() <= yMax;
     }
 }

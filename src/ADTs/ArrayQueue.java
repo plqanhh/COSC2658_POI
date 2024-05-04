@@ -7,7 +7,7 @@ public class ArrayQueue<T> {
 
   // I set a small value to test
   // you should replace 10 with a larger value when you use this ADT
-  private static int MAX_SIZE = 10;
+  private static int MAX_SIZE = 100;
   private T[] items;
 
   public ArrayQueue() {

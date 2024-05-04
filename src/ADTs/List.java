@@ -48,5 +48,4 @@ public interface List<T> {
     // return a value at a specific index
     // return null if index is invalid
     public T get(int index);
-    void add(T element);
 }

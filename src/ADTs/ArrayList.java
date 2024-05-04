@@ -1,15 +1,17 @@
 package ADTs;
 
-public class ArrayList<T> implements List<T> {
+import java.util.Iterator;
+
+public class ArrayList<T> implements List<T>, Iterable<T> {
     private int size;
     private int pointer;
-    private static int CAPACITY = 1000;
+    private static int CAPACITY = 100000;
     private T[] items;
 
     public ArrayList() {
         size = 0;
         pointer = 0;
-        items = (T[])new Object[CAPACITY];
+        items = (T[]) new Object[CAPACITY];
     }
 
     // shift all elements from index one position to the right
@@ -25,6 +27,22 @@ public class ArrayList<T> implements List<T> {
         for (int i = index + 1; i < size; i++) {
             items[i - 1] = items[i];
         }
+    }
+
+    public boolean add(T value) {
+        if (size >= items.length) {
+            // Optionally, increase the size of the items array if needed
+            ensureCapacity();
+        }
+        items[size++] = value;
+        return true;
+    }
+    
+    private void ensureCapacity() {
+        int newCapacity = items.length * 2;
+        T[] newItems = (T[]) new Object[newCapacity];
+        System.arraycopy(items, 0, newItems, 0, size);
+        items = newItems;
     }
 
     @Override
@@ -117,34 +135,44 @@ public class ArrayList<T> implements List<T> {
         return false;
     }
 
-    public static void main(String[] args) {
-        List<String> names = new ArrayList<>();
-        names.insertAt(0, "World");  // World
-        names.insertAt(0, "Hello");  // Hello, World
-        names.insertAt(0, "RMIT");  // RMIT, Hello, World
-        System.out.println("-------First Test-------");
-        names.reset();
-        while (names.hasNext()) {
-            System.out.println(names.next());
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size;
+            }
+
+            @Override
+            public T next() {
+                return items[currentIndex++];
+            }
+        };
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public T set(int index, T element) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-        names.insertBefore("RMIT", "SSET");  // SSET, RMIT, Hello, World
-        names.insertAfter("World", "4.0");  // SSET, RMIT, Hello, World, 4.0
-        names.insertAfter("Alice", "Wonderland");  // SSET, RMIT, Hello, World, 4.0 (no change)
-        System.out.println("-------Second Test-------");
-        names.reset();
-        while (names.hasNext()) {
-            System.out.println(names.next());
+        T oldElement = items[index];
+        items[index] = element;
+        return oldElement;
+    }
+
+
+public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Hello");
+        list.add("World");
+
+        for (String item : list) {
+            System.out.println(item);
         }
-        names.removeAt(1);  // // SSET, Hello, World, 4.0
-        names.remove("4.0");  // // SSET, Hello, World
-        System.out.println("-------Third Test-------");
-        names.reset();
-        while (names.hasNext()) {
-            System.out.println(names.next());
-        }
-        System.out.println("-------More Test-------");
-        System.out.println("Value at index 1: " + names.get(1));  // Hello
-        System.out.println("Alice exists in the list? " + names.contains("Alice"));  // false
-        System.out.println("SSET exists in the list? " + names.contains("SSET"));  // true
     }
 }

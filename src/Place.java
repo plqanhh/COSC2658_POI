@@ -1,24 +1,39 @@
+import ADTs.*;
 public class Place {
-    private String id;
-    private String name;
-    private final Point point;
-    private String[] services;
+    private Point location;
+    private ArrayList<String> services; // Assuming services are stored as a boolean array for availability
 
-    public Place(String id, String name, Point position, String[] services) {
-        this.id = id;
-        this.name = name;
-        this.point = position;
+    public Place(int x, int y, ArrayList<String> services) {
+        this.location = new Point(x, y);
         this.services = services;
     }
 
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public Point getPoint() { return point; }
-    public String[] getServices() { return services; }
-    public void setServices(String[] services) { this.services = services; }
+    public Point getLocation() {
+        return location;
+    }
+
+    public ArrayList<String> getServices() {
+        return services;
+    }
+
+    public boolean offersService(ServiceType service) {
+        return services.contains(service.name());
+    }
+
+    public void setServices(ArrayList<String> services) {
+        this.services = services;
+    }
+
+    public String toFileString() {
+        return getLocation().getX() + "," + getLocation().getY() + "," + servicesToString();
+    }
+
+    public String servicesToString() {
+        return String.join(", ", services);
+    }
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Name: " + name + ", Location: (" + point.getX() + "," + point.getY() + ")";
+        return "Place at (" + location.getX() + ", " + location.getY() + ") offering " + servicesToString();
     }
 }
