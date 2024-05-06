@@ -413,7 +413,7 @@ public class Map2D{
     }
         // // Method to save all places to a file
     public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("places.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\\\Users\\\\ASUS\\\\Desktop\\\\DSA_github\\\\COSC2658_Project1\\\\src\\\\Nhan_\\\\place.txt"))) {
             saveNodeToFile(root, writer);
         } catch (IOException e) {
             System.err.println("Error saving to file: " + e.getMessage());

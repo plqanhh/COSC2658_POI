@@ -70,50 +70,18 @@ public class Main {
         // System.out.println("------Print Tree------");
         // map.printTree();
 
-        // // Initialize the 10x10 matrix
-        // String[][] matrix = new String[10][10];
-        // for (int i = 0; i < 10; i++) {
-        //     Arrays.fill(matrix[i], "-");
-        // }
-
-        // // Mark the places on the matrix
-        // List<Place> list = map.getPlacesList();
-        // for (int i = 0; i < list.size(); i++) {
-        //     Place place = list.get(i);
-        //     Position pos = place.getPosition();
-        //     if (pos.getX() >= 0 && pos.getX() < 10 && pos.getY() >= 0 && pos.getY() < 10) {
-        //         matrix[pos.getX()][pos.getY()] = "X";
-        //     }
-        // }
-
-        // // // Print the matrix
-        // // System.out.println("Matrix representation of the map:");
-        // // printMatrix(matrix);
-
-        // // Mark the boundary of the places on the matrix
-        // // Define a search boundary and mark it
-        // Position center = new Position(4, 4);
-        // int width = 10;
-        // int height = 10;
-        // markBoundary(matrix, center, width, height);
-
-        // // Print the matrix with the boundary
-        // System.out.println("Matrix with search boundary:");
-        // printMatrix(matrix);
-
-
         Map2D map = new Map2D();
+        readPlacesFromDataFile(map);
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             System.out.println("\nAvailable Operations:");
             System.out.println("1. Add a new place");
             System.out.println("2. Edit an existing place");
-            System.out.println("3. Search for places");
-            System.out.println("4. Print all places");
-            System.out.println("5. Remove a place");
-            System.out.println("6. Exit");
-            System.out.print("Select an operation (1-6): ");
+            System.out.println("3. Search for places within a rectangle boundary");
+            System.out.println("4. Remove a place");
+            System.out.println("5. Exit");
+            System.out.print("Select an operation (1-5): ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Flush the scanner
 
@@ -127,13 +95,10 @@ public class Main {
                 case 3:
                     searchPlaces(scanner, map);
                     break;
-                // case 4:
-                //     map.print();
-                //     break;
-                case 5:
+                case 4:
                     removePlace(scanner, map);
                     break;
-                case 6:
+                case 5:
                     System.out.println("Exiting and saving...");
                     map.saveToFile();
                     scanner.close();
@@ -229,36 +194,25 @@ public class Main {
             System.out.println("No place found at the specified coordinates or failed to remove.");
         }
     }
+    private static void readPlacesFromDataFile(Map2D map){
+        String filename = "C:\\Users\\ASUS\\Desktop\\DSA_github\\COSC2658_Project1\\src\\Nhan_\\place.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                int x = Integer.parseInt(parts[0].trim());
+                int y = Integer.parseInt(parts[1].trim());
+                String[] services = parts[2].split(";");
+                Position position = new Position(x, y);
+                Place newPlace = new Place(position, services);
+                map.add(newPlace);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading data from the file.");
+            e.printStackTrace();
+        }
+    }
 }
-    // private static void printMatrix(String[][] matrix) {
-    //     for (String[] row : matrix) {
-    //         for (String cell : row) {
-    //             System.out.print(cell + " ");
-    //         }
-    //         System.out.println();
-    //     }
-    // }
 
-    // private static void markBoundary(String[][] matrix, Position center, int width, int height) {
-    //     int startX = Math.max(center.getX() - width / 2, 0);
-    //     int startY = Math.max(center.getY() - height / 2, 0);
-    //     int endX = Math.min(center.getX() + width / 2, matrix.length - 1);
-    //     int endY = Math.min(center.getY() + height / 2, matrix[0].length - 1);
-    
-    //     // Mark the boundary with "%"
-    //     for (int x = startX; x <= endX; x++) {
-    //         if (x < matrix.length) {
-    //             if (startY < matrix[0].length) matrix[x][startY] = "%"; // Top boundary
-    //             if (endY < matrix[0].length) matrix[x][endY] = "%"; // Bottom boundary
-    //         }
-    //     }
-    //     for (int y = startY; y <= endY; y++) {
-    //         if (y < matrix[0].length) {
-    //             if (startX < matrix.length) matrix[startX][y] = "%"; // Left boundary
-    //             if (endX < matrix.length) matrix[endX][y] = "%"; // Right boundary
-    //         }
-    //     }
-    // }
-    
-// }
+
 
