@@ -207,7 +207,7 @@ public class Main {
         }
     }
     private static void readPlacesFromDataFile(Map2D map){
-        String filename = "C:\\Users\\ASUS\\Desktop\\DSA_github\\COSC2658_Project1\\src\\Nhan_\\place.txt";
+        String filename = "place.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
