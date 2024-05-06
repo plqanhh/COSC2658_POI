@@ -19,8 +19,7 @@ public class Place {
 
     @Override
     public String toString() {
-        return "Place [ position=" + position + ", services="
-                + Arrays.toString(services) + "]";
+        return "Place at (" + position.getX() + ", " + position.getY() + ") offering " + servicesToString();
     }
 
     public void setServices(String[] services) {
@@ -33,6 +32,7 @@ public class Place {
     public String servicesToString() {
         return String.join(", ", services);
     }
+
 }
 class Node{
     Place place;

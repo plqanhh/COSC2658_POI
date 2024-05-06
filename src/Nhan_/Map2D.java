@@ -1,13 +1,11 @@
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Map2D{
     private Node root;
     private ArrayList<Node> placesList;
-    final int maxResults = 50;
+    final int maxResults = 49;
     
     public Map2D(){
         root = null;
@@ -386,6 +384,7 @@ public class Map2D{
         int maxX = center.getX() + width/2;
         int minY = center.getY() - height/2;
         int maxY = center.getY() + height/2;
+        System.out.println("The search area is having the X-axis:(" + minX + ", " + maxX + ") and Y-axis: (" + minY + ", " + maxY + ")");
         searchNearestPlace(root, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
         return listOfAvailablePlace;
     }
@@ -430,7 +429,5 @@ public class Map2D{
         }
     }
 }
-
-
 
 /* ------------------------Search Functions End----------------------------- */

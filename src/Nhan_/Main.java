@@ -1,13 +1,11 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
-
+        
         // Map2D map = new Map2D();
         // map.add(new Place("4", "Place 4", new Position(4, 4), new String[] { "School", "Restaurant" }));
         // map.add(new Place("1", "Place 1", new Position(1, 1), new String[] { "Restaurant", "School" }));
@@ -155,26 +153,40 @@ public class Main {
     private static void searchPlaces(Scanner scanner, Map2D map) {
         System.out.print("Enter the current X coordinate of your searching place: ");
         int x = scanner.nextInt();
-        System.out.print("Enter the current Y coordinate of the searching place: ");
+        System.out.print("Enter the current Y coordinate of your searching place: ");
         int y = scanner.nextInt();
-        System.out.print("Enter the width of the search rectangle boundary: ");
+        System.out.print("Enter the width of the search rectangle boundary  (Min: 10,000 and Max: 10,000,000,000): ");
         int width = scanner.nextInt();
-        System.out.print("Enter the height of the search rectangle boundary: ");
+        // while (width < 10000 || width > 1000000000) {
+        //     System.out.println("Invalid width. Please enter a valid width: ");
+        //     width = scanner.nextInt();
+        // }
+        System.out.print("Enter the height of the search rectangle boundary (Min: 10,000 and Max: 10,000,000,000): ");
         int height = scanner.nextInt();
-        System.out.println("Enter the service type to search for (or press Enter to search for all services): ");
-        String service = scanner.nextLine(); // Flush the scanner
-
-        if(service.isEmpty() || !ServiceType.isValid(service)){
+        // while (height < 10000 || height > 1000000000) {
+        //     System.out.println("Invalid height. Please enter a valid height: ");
+        //     height = scanner.nextInt();
+        // }
+        scanner.nextLine(); // Flush the scanner
+        System.out.print("Enter the service type to search for: ");
+        String serviceType = scanner.nextLine();
+        while(serviceType.isEmpty()){
             System.out.println("Invalid service type. Please enter a valid service type.");
-            return;
+            serviceType = scanner.nextLine();
         }
-
+        if(!serviceType.equals(serviceType.toUpperCase())){
+            serviceType = serviceType.toUpperCase();
+        }
+        while(!ServiceType.isValid(serviceType)){
+            System.out.println("Invalid service type. Please enter a valid service type.");
+            serviceType = scanner.nextLine();
+        }
         // Define a search boundary and search for places
-        ArrayQueue<Place> places = map.search(new Position(x, y), width, height, scanner.nextLine());
+        ArrayQueue<Place> places = map.search(new Position(x, y), width, height, serviceType);
         System.out.println("Places found: " + places.size());
         System.out.println("Found places within the specified rectangle:");
         while(!places.isEmpty()){
-            System.out.println(places.peekFront());
+            System.out.println(places.peekFront().toString());
             places.deQueue();
         }
     }
