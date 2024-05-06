@@ -73,8 +73,8 @@ public class DataGenerator {
     public static void main(String[] args) {
         try {
             String filename = "places.txt";
-            int numberOfPlaces = 10000; // Number of places to generate
-            int mapSize = 1000; // Reduced map size for localized data
+            int numberOfPlaces = 50000; // Number of places to generate
+            int mapSize = 100000; // Reduced map size for localized data
             generatePlaces(filename, numberOfPlaces, mapSize);
             System.out.println("Data generation complete. Generated " + numberOfPlaces + " places.");
 

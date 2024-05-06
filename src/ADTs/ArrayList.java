@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class ArrayList<T> implements List<T>, Iterable<T> {
     private int size;
     private int pointer;
-    private static int CAPACITY = 100000;
+    private static int CAPACITY = 10000;
     private T[] items;
 
     public ArrayList() {
@@ -39,10 +39,12 @@ public class ArrayList<T> implements List<T>, Iterable<T> {
     }
     
     private void ensureCapacity() {
-        int newCapacity = items.length * 2;
-        T[] newItems = (T[]) new Object[newCapacity];
-        System.arraycopy(items, 0, newItems, 0, size);
-        items = newItems;
+        if (size >= items.length) {
+            int newCapacity = items.length + (items.length >> 1); // Increase by 50%
+            T[] newItems = (T[]) new Object[newCapacity];
+            System.arraycopy(items, 0, newItems, 0, size);
+            items = newItems;
+        }
     }
 
     @Override
