@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Map2D{
     private Node root;
     private ArrayList<Node> placesList;
@@ -14,6 +20,11 @@ public class Map2D{
             root.isRed = false; // Root is always black
             return root;
         }
+        if(findNode(place.getPosition()) != null){
+            System.out.println("Place already exists at point: " + place.getPosition().getX() + ", " + place.getPosition().getY());
+            return null;
+        }
+
         Node current = root;
         Node parentNode = null;
         boolean useX = true;
@@ -118,7 +129,36 @@ public class Map2D{
         leftChild.right = node;
         node.parent = leftChild;
     }
-
+    private int getHeight(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftHeight = getHeight(node.left);
+        int rightHeight = getHeight(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+        // Method to check if the tree is balanced
+        public boolean isBalanced(Node node) {
+            if (node == null) {
+                return true;
+            }
+    
+            int leftHeight = getHeight(node.left);
+            int rightHeight = getHeight(node.right);
+    
+            if (Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(node.left) && isBalanced(node.right)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    
+        // Call this method to check if the whole tree is balanced
+        public boolean isTreeBalanced() {
+            return isBalanced(root);
+        }
+    
+        
     public void printTree() {
         printNode(root, 0, "Root");
     }
@@ -232,15 +272,15 @@ public class Map2D{
         node.isRed = false;
     }
     
-    public void remove(Position pos) {
+    public boolean remove(Position pos) {
         // Find the node to remove
         Node nodeToRemove = findNode(pos);
         if (nodeToRemove == null) {
-            System.out.println("Place not found at point: " + pos);
-            return;
+            return false;
         }
         // Remove the node
         removeNode(nodeToRemove);
+        return true;
     }
 
     // Helper method to remove a node
@@ -371,6 +411,26 @@ public class Map2D{
             searchNearestPlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
         }
     }
+        // // Method to save all places to a file
+    public void saveToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("places.txt"))) {
+            saveNodeToFile(root, writer);
+        } catch (IOException e) {
+            System.err.println("Error saving to file: " + e.getMessage());
+        }
+    }
+
+    // Recursive helper method to save node data to file
+    private void saveNodeToFile(Node node, BufferedWriter writer) throws IOException {
+        if (node != null) {
+            writer.write(node.place.toFileString());
+            writer.newLine();
+            saveNodeToFile(node.left, writer);
+            saveNodeToFile(node.right, writer);
+        }
+    }
 }
+
+
 
 /* ------------------------Search Functions End----------------------------- */

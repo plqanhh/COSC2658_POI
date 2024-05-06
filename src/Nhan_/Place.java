@@ -1,26 +1,14 @@
 import java.util.Arrays;
 
 public class Place {
-    private String id;
-    private String name;
     private final Position position;
     private String[] services;
 
-    public Place(String id, String name, Position position, String[] services) {
-        this.id = id;
-        this.name = name;
+    public Place(Position position, String[] services) {
         this.position = position;
         this.services = services;
     }
     
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public Position getPosition() {
         return position;
     }
@@ -31,20 +19,19 @@ public class Place {
 
     @Override
     public String toString() {
-        return "Place [id=" + id + ", name=" + name + ", position=" + position + ", services="
+        return "Place [ position=" + position + ", services="
                 + Arrays.toString(services) + "]";
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setServices(String[] services) {
         this.services = services;
+    }
+    public String toFileString() {
+        return getPosition().getX() + "," + getPosition().getY() + "," + servicesToString();
+    }
+
+    public String servicesToString() {
+        return String.join(", ", services);
     }
 }
 class Node{
