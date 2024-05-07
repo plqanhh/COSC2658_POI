@@ -70,8 +70,10 @@ public class Main {
 
         Map2D map = new Map2D();
         readPlacesFromDataFile(map);
+        System.out.println( map.getPlacesList().size());
+    
         Scanner scanner = new Scanner(System.in);
-
+        
         while (true) {
             System.out.println("\nAvailable Operations:");
             System.out.println("1. Add a new place");
@@ -183,6 +185,16 @@ public class Main {
         }
         // Define a search boundary and search for places
         ArrayQueue<Place> places = map.search(new Position(x, y), width, height, serviceType);
+        ArrayList<Place> placesList = map.getPlacesList();
+        int minX = x - width/2;
+        int maxX = x + width/2;
+        int minY = y - height/2;
+        int maxY = y + height/2;
+        for(int i = 0; i < placesList.size(); i++){
+            if(placesList.get(i).getPosition().getX() >= minX && placesList.get(i).getPosition().getX() <= maxX && placesList.get(i).getPosition().getY() >= minY && placesList.get(i).getPosition().getY() <= maxY){
+                System.out.println(placesList.get(i).toString());
+            }
+        }
         System.out.println("Places found: " + places.size());
         System.out.println("Found places within the specified rectangle:");
         while(!places.isEmpty()){
@@ -207,7 +219,8 @@ public class Main {
         }
     }
     private static void readPlacesFromDataFile(Map2D map){
-        String filename = "place.txt";
+        String filename = "D:\\DSA_github\\COSC2658_Project1\\src\\Nhan_\\places.txt";
+        int count = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -218,6 +231,10 @@ public class Main {
                 Position position = new Position(x, y);
                 Place newPlace = new Place(position, services);
                 map.add(newPlace);
+                count++;
+                if(count == 1000){
+                    break;
+                }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading data from the file.");

@@ -1,7 +1,7 @@
 public class ArrayList<T> implements List<T>  {
     private int size;
     private int pointer;
-    private static int CAPACITY = 100000;
+    private static int CAPACITY = 10000000;
     private T[] items;
 
     public ArrayList() {

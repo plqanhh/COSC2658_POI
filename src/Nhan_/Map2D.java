@@ -11,56 +11,7 @@ public class Map2D{
         root = null;
         placesList = new ArrayList<>();
     }
-    public Node add(Place place){
-        if(root == null){
-            root = new Node(place, null);
-            placesList.insertAt(placesList.size(), root);
-            root.isRed = false; // Root is always black
-            return root;
-        }
-        if(findNode(place.getPosition()) != null){
-            System.out.println("Place already exists at point: " + place.getPosition().getX() + ", " + place.getPosition().getY());
-            return null;
-        }
-
-        Node current = root;
-        Node parentNode = null;
-        boolean useX = true;
-        
-        while(current != null){
-            parentNode = current;
-            int comparePlace;
-            int compareParent;
-            if(useX){
-                comparePlace = current.place.getPosition().getX();
-                compareParent = place.getPosition().getX();
-            } else {
-                comparePlace = current.place.getPosition().getY();
-                compareParent = place.getPosition().getY();
-            }
-            if(comparePlace > compareParent){
-                if(current.left == null){
-                    Node newPlace = new Node(place, parentNode);
-                    current.left = newPlace ;
-                    placesList.insertAt(placesList.size()-1, newPlace);
-                    insertFixup(newPlace);
-                    return newPlace;
-                }
-                current = current.left;
-            } else {
-                if(current.right == null){
-                    Node newPlace = new Node(place, parentNode);
-                    current.right = newPlace;
-                    placesList.insertAt(placesList.size()-1, newPlace);
-                    insertFixup(newPlace);
-                    return newPlace;
-                }
-                current = current.right;
-            }  
-            useX = !useX; 
-        }
-        return null;
-    }
+    
     public ArrayList<Place> getPlacesList(){
         ArrayList<Place> places = new ArrayList<>();
         for(int i = 0; i < placesList.size(); i++){
@@ -68,65 +19,48 @@ public class Map2D{
         }
         return places;
     }
-    private void insertFixup(Node node) {
-        while (node != root && node.parent.isRed) {
-            Node grandparent = node.parent.parent;
-            Node uncle = (node.parent == grandparent.left) ? grandparent.right : grandparent.left;
-    
-            if (uncle != null && uncle.isRed) { // Uncle red
-                node.parent.isRed = false;
-                uncle.isRed = false;
-                grandparent.isRed = true;
-                node = grandparent;
-            } else { // Uncle black or null
-                if (node.parent == grandparent.left) {
-                    if (node == node.parent.right) { // Left-Right Case
-                        node = node.parent;
-                        rotateLeft(node);
-                    }
-                    // Left-Left Case
-                    node.parent.isRed = false;
-                    grandparent.isRed = true;
-                    rotateRight(grandparent);
-                } else {
-                    if (node == node.parent.left) { // Right-Left Case
-                        node = node.parent;
-                        rotateRight(node);
-                    }
-                    // Right-Right Case
-                    node.parent.isRed = false;
-                    grandparent.isRed = true;
-                    rotateLeft(grandparent);
-                }
-            }
+
+    public Node add(Place place){
+        if(root == null){
+            root = new Node(place, null);
+            placesList.add(root);
+            return root;
         }
-        root.isRed = false; // Root should always be black
+        Node current = root;
+        boolean useX = true;
+        while(current != null){
+            int comparePlace;
+            int comparePosition;
+            if(useX){
+                comparePlace = current.place.getPosition().getX();
+                comparePosition = place.getPosition().getX();
+            } else {
+                comparePlace = current.place.getPosition().getY();
+                comparePosition = place.getPosition().getY();
+            }
+            if(comparePlace == comparePosition){
+                return null;
+            } else if(comparePlace > comparePosition){
+                if(current.left == null){
+                    current.left = new Node(place, current);
+                    placesList.add(current.left);
+                    return current.left;
+                }
+                current = current.left;
+            } else {
+                if(current.right == null){
+                    current.right = new Node(place, current);
+                    placesList.add(current.right);
+                    return current.right;
+                }
+                current = current.right;
+            }
+            useX = !useX;
+        }
+        return null;
     }
 
 
-    private void rotateLeft(Node node) {
-        Node rightChild = node.right;
-        node.right = rightChild.left;
-        if (rightChild.left != null) rightChild.left.parent = node;
-        rightChild.parent = node.parent;
-        if (node.parent == null) root = rightChild;
-        else if (node == node.parent.left) node.parent.left = rightChild;
-        else node.parent.right = rightChild;
-        rightChild.left = node;
-        node.parent = rightChild;
-    }
-    
-    private void rotateRight(Node node) {
-        Node leftChild = node.left;
-        node.left = leftChild.right;
-        if (leftChild.right != null) leftChild.right.parent = node;
-        leftChild.parent = node.parent;
-        if (node.parent == null) root = leftChild;
-        else if (node == node.parent.right) node.parent.right = leftChild;
-        else node.parent.left = leftChild;
-        leftChild.right = node;
-        node.parent = leftChild;
-    }
     private int getHeight(Node node) {
         if (node == null) {
             return 0;
@@ -135,6 +69,10 @@ public class Map2D{
         int rightHeight = getHeight(node.right);
         return Math.max(leftHeight, rightHeight) + 1;
     }
+
+
+
+
         // Method to check if the tree is balanced
         public boolean isBalanced(Node node) {
             if (node == null) {
@@ -175,8 +113,8 @@ public class Map2D{
           .append(node.place.getPosition().getX())
           .append(", ")
           .append(node.place.getPosition().getY())
-          .append("] ")
-          .append(node.isRed ? "Red" : "Black"); // Add color information if it's a Red-Black Tree
+          .append("] ");
+    
 
         System.out.println(sb.toString());
 
@@ -215,60 +153,6 @@ public class Map2D{
         return null;
     }
     /*--------------------------Remove Function ------------------------------- */
-    private void deleteFixup(Node node) {
-        while (node != root && !node.isRed) {
-            if (node == node.parent.getLeft()) {
-                Node sibling = node.parent.getRight();
-                if (sibling.isRed) {
-                    sibling.isRed = false;
-                    node.parent.isRed = true;
-                    rotateLeft(node.parent);
-                    sibling = node.parent.getRight();
-                }
-                if (!sibling.getLeft().isRed && !sibling.getRight().isRed) {
-                    sibling.isRed = true;
-                    node = node.parent;
-                } else {
-                    if (!sibling.getRight().isRed) {
-                        sibling.getLeft().isRed = false;
-                        sibling.isRed = true;
-                        rotateRight(sibling);
-                        sibling = node.parent.getRight();
-                    }
-                    sibling.isRed = node.parent.isRed;
-                    node.parent.isRed = false;
-                    sibling.getRight().isRed = false;
-                    rotateLeft(node.parent);
-                    node = root;
-                }
-            } else { // Node is node.parent.getRight()
-                Node sibling = node.parent.getLeft();
-                if (sibling.isRed) {
-                    sibling.isRed = false;
-                    node.parent.isRed = true;
-                    rotateRight(node.parent);
-                    sibling = node.parent.getLeft();
-                }
-                if (!sibling.getRight().isRed && !sibling.getLeft().isRed) {
-                    sibling.isRed = true;
-                    node = node.parent;
-                } else {
-                    if (!sibling.getLeft().isRed) {
-                        sibling.getRight().isRed = false;
-                        sibling.isRed = true;
-                        rotateLeft(sibling);
-                        sibling = node.parent.getLeft();
-                    }
-                    sibling.isRed = node.parent.isRed;
-                    node.parent.isRed = false;
-                    sibling.getLeft().isRed = false;
-                    rotateRight(node.parent);
-                    node = root;
-                }
-            }
-        }
-        node.isRed = false;
-    }
     
     public boolean remove(Position pos) {
         // Find the node to remove
@@ -297,16 +181,14 @@ public class Map2D{
         }
     }
 
-    // Helper method to remove a leaf node
+    // // Helper method to remove a leaf node
     private void removeLeafNode(Node node) {
-        if (node.isRed || node == root) {
-            if (node == root) root = null;
-            else detachNode(node);
+        if (node == root) {
+            root = null;
         } else {
-            deleteFixup(node);
             detachNode(node);
-            placesList.remove(node);
         }
+        placesList.remove(node);
     }
     
     private void detachNode(Node node) {
@@ -336,34 +218,27 @@ public class Map2D{
     // Helper method to remove a node with one child
     private void removeNodeWithOneChild(Node node) {
         Node child = (node.getLeft() != null) ? node.getLeft() : node.getRight();
-        transplant(node, child);
-        placesList.remove(node);
-        if (!node.isRed) {
-            if (child.isRed) child.isRed = false;
-            else deleteFixup(child);
+        if (node == root) {
+            root = child;
+        } else {
+            if (node == node.getParent().getLeft()) {
+                node.getParent().setLeft(child);
+            } else {
+                node.getParent().setRight(child);
+            }
         }
+        if (child != null) {
+            child.setParent(node.getParent());
+        }
+        placesList.remove(node);
     }
 
-    // Helper method to remove a node with two children
+    // // Helper method to remove a node with two children
     private void removeNodeWithTwoChildren(Node node) {
         Node successor = findSuccessor(node.getRight());
-        boolean originalColorIsRed = successor.isRed;
-        Node successorChild = (successor.getRight() != null) ? successor.getRight() : null;
-    
-        if (successor.getParent() != node) {
-            transplant(successor, successorChild);
-            successor.setRight(node.getRight());
-            successor.getRight().setParent(successor);
-        }
-        transplant(node, successor);
+        node.place = successor.place;
+        removeNode(successor);
         placesList.remove(node);
-        successor.setLeft(node.getLeft());
-        successor.getLeft().setParent(successor);
-        successor.isRed = node.isRed;
-    
-        if (!originalColorIsRed && successorChild != null) {
-            deleteFixup(successorChild);
-        }
     }
 
     // Helper method to find the successor node
@@ -385,15 +260,20 @@ public class Map2D{
         int minY = center.getY() - height/2;
         int maxY = center.getY() + height/2;
         System.out.println("The search area is having the X-axis:(" + minX + ", " + maxX + ") and Y-axis: (" + minY + ", " + maxY + ")");
-        searchNearestPlace(root, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
+        searchNearestPlace(root, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, 0);
         return listOfAvailablePlace;
     }
-    public void searchNearestPlace(Node curNode, int minX, int maxX, int minY, int maxY , String type, int maxResults, ArrayQueue<Place> listOfAvailablePlace){
-        if(curNode == null || listOfAvailablePlace.size() > maxResults){
+
+    public void searchNearestPlace(Node curNode, int minX, int maxX, int minY, int maxY, String type, int maxResults, ArrayQueue<Place> listOfAvailablePlace, int depth) {
+        if(curNode == null || listOfAvailablePlace.size() >= maxResults){
             return;
         }
+    
         int x = curNode.place.getPosition().getX();
         int y = curNode.place.getPosition().getY();
+        boolean useX = (depth % 2) == 0;
+    
+        // Check current node
         if(x >= minX && x <= maxX && y >= minY && y <= maxY){
             for(String service : curNode.place.getServices()){
                 if(service.equals(type)){
@@ -402,14 +282,25 @@ public class Map2D{
                 }
             }
         }
-       
-        if (curNode.left != null && (curNode.left.place.getPosition().getX() >= minX || curNode.left.place.getPosition().getY() >= minY)) {
-            searchNearestPlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
-        }
-        if (curNode.right != null && (curNode.right.place.getPosition().getX() <= maxX || curNode.right.place.getPosition().getY() <= maxY)) {
-            searchNearestPlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace);
+    
+        // Determine whether to go left or right in the tree
+        if (useX) {
+            if (x >= minX && curNode.left != null) {
+                searchNearestPlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+            }
+            if (x <= maxX && curNode.right != null) {
+                searchNearestPlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+            }
+        } else {
+            if (y >= minY && curNode.left != null) {
+                searchNearestPlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+            }
+            if (y <= maxY && curNode.right != null) {
+                searchNearestPlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+            }
         }
     }
+    
         // // Method to save all places to a file
     public void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("place.txt"))) {

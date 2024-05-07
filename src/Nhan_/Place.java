@@ -38,7 +38,6 @@ class Node{
     Place place;
     Node left, right, parent;
     int height;
-    boolean isRed; // true for Red, false for Black (red by default)
 
     public Node(Place place, Node parent) {
         this.place = place;
@@ -46,7 +45,6 @@ class Node{
         this.right = null;
         this.parent = parent;
         this.height = 0;
-        this.isRed = true; // New nodes are red by default
     }
     public int getHeight() {
         return height;
