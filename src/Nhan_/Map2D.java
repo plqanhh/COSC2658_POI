@@ -70,24 +70,21 @@ public class Map2D{
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
-
-
-
         // Method to check if the tree is balanced
-        public boolean isBalanced(Node node) {
-            if (node == null) {
-                return true;
-            }
-    
-            int leftHeight = getHeight(node.left);
-            int rightHeight = getHeight(node.right);
-    
-            if (Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(node.left) && isBalanced(node.right)) {
-                return true;
-            } else {
-                return false;
-            }
+    public boolean isBalanced(Node node) {
+        if (node == null) {
+            return true;
         }
+    
+        int leftHeight = getHeight(node.left);
+        int rightHeight = getHeight(node.right);
+    
+        if (Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(node.left) && isBalanced(node.right)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
         // Call this method to check if the whole tree is balanced
         public boolean isTreeBalanced() {
