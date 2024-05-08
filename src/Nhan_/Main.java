@@ -62,11 +62,14 @@ public class Main {
         Place newPlace = new Place(position, services);
         //Start time
         long startTime = System.nanoTime();
-        map.add(newPlace);
+        if(map.add(newPlace) == null){
+            System.out.println("A place already exists at the specified coordinates.");
+        } else {
+            System.out.println("New place added successfully.");
+        }
         //End time
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
-        System.out.println("New place added successfully.");
         System.out.println("Time to add a new place: " + duration + " nanoseconds");
     }
 
@@ -78,7 +81,7 @@ public class Main {
         scanner.nextLine(); // Flush the scanner
         Position curPosition = new Position(x, y);
         Place place;
-        
+
         if(map.findNode(curPosition) == null){
             System.out.println("No place found at the specified coordinates.");
             return;
