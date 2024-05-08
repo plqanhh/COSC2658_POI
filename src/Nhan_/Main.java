@@ -122,8 +122,14 @@ public class Main {
         }
         Position position = new Position(x, y);
         Place newPlace = new Place(position, services);
+        //Start time
+        long startTime = System.nanoTime();
         map.add(newPlace);
+        //End time
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
         System.out.println("New place added successfully.");
+        System.out.println("Time to add a new place: " + duration + " nanoseconds");
     }
 
     private static void editPlace(Scanner scanner, Map2D map) {
@@ -138,7 +144,7 @@ public class Main {
             System.out.println("No place found at the specified coordinates.");
             return;
         }
-        System.out.println("Current services: " + place.getServices().toString());
+        System.out.println("Current services: " + place.serviceString());
         System.out.print("Enter new services (comma-separated): ");
         String[] newServices = new String[] {};
 
@@ -148,8 +154,14 @@ public class Main {
             newServices = Arrays.copyOf(newServices, newServices.length + 1);
             newServices[newServices.length - 1] = service;
         }
+        //Start time
+        long startTime = System.nanoTime();
         map.editPlace(curPosition, newServices);
+        //End time
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
         System.out.println("Place edited successfully.");
+        System.out.println("Time to edit a place: " + duration + " nanoseconds");
     }
 
     private static void searchPlaces(Scanner scanner, Map2D map) {
@@ -184,7 +196,12 @@ public class Main {
             serviceType = scanner.nextLine();
         }
         // Define a search boundary and search for places
+        //Start time
+        long startTime = System.nanoTime();
         ArrayQueue<Place> places = map.search(new Position(x, y), width, height, serviceType);
+        //End time
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
         ArrayList<Place> placesList = map.getPlacesList();
         int minX = x - width/2;
         int maxX = x + width/2;
@@ -195,6 +212,7 @@ public class Main {
                 System.out.println(placesList.get(i).toString());
             }
         }
+        System.out.println("Time to search for places: " + duration + " nanoseconds");
         System.out.println("Places found: " + places.size());
         System.out.println("Found places within the specified rectangle:");
         while(!places.isEmpty()){
@@ -210,10 +228,15 @@ public class Main {
         int y = scanner.nextInt();
         scanner.nextLine(); // Flush the scanner
         Position curPosition = new Position(x, y);
-
+        //Start time
+        long startTime = System.nanoTime();
         // Call to remove the place
         if (map.remove(curPosition)){
+            //End time
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime);
             System.out.println("Place removed successfully.");
+            System.out.println("Time to remove a place: " + duration + " nanoseconds");
         } else {
             System.out.println("No place found at the specified coordinates or failed to remove.");
         }
@@ -221,6 +244,7 @@ public class Main {
     private static void readPlacesFromDataFile(Map2D map){
         String filename = "D:\\DSA_github\\COSC2658_Project1\\src\\Nhan_\\places.txt";
         int count = 0;
+        long startTime = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -230,12 +254,19 @@ public class Main {
                 String[] services = parts[2].split(";");
                 Position position = new Position(x, y);
                 Place newPlace = new Place(position, services);
+                //Start time
+                startTime = System.nanoTime();
                 map.add(newPlace);
                 count++;
-                if(count == 1000){
+                if(count == 500000){
                     break;
                 }
             }
+            //End time
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime);
+            System.out.println("Loading data from the file completed successfully.");
+            System.out.println("Time to read places from the file: " + duration + " nanoseconds");
         } catch (IOException e) {
             System.out.println("An error occurred while reading data from the file.");
             e.printStackTrace();

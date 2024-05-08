@@ -61,67 +61,6 @@ public class Map2D{
     }
 
 
-    private int getHeight(Node node) {
-        if (node == null) {
-            return 0;
-        }
-        int leftHeight = getHeight(node.left);
-        int rightHeight = getHeight(node.right);
-        return Math.max(leftHeight, rightHeight) + 1;
-    }
-
-
-
-
-        // Method to check if the tree is balanced
-        public boolean isBalanced(Node node) {
-            if (node == null) {
-                return true;
-            }
-    
-            int leftHeight = getHeight(node.left);
-            int rightHeight = getHeight(node.right);
-    
-            if (Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(node.left) && isBalanced(node.right)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    
-        // Call this method to check if the whole tree is balanced
-        public boolean isTreeBalanced() {
-            return isBalanced(root);
-        }
-    
-        
-    public void printTree() {
-        printNode(root, 0, "Root");
-    }
-
-    private void printNode(Node node, int depth, String direction) {
-        if (node == null) return;
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < depth; i++) {
-            sb.append("   "); // Indentation for visual hierarchy
-        }
-
-        // Add node information
-        sb.append(direction)
-          .append(": [")
-          .append(node.place.getPosition().getX())
-          .append(", ")
-          .append(node.place.getPosition().getY())
-          .append("] ");
-    
-
-        System.out.println(sb.toString());
-
-        // Recursively print left and right children
-        printNode(node.left, depth + 1, "L");
-        printNode(node.right, depth + 1, "R");
-    }
     public void editPlace(Position position, String[] services){
         Node node = findNode(position);
         if(node != null){
@@ -260,11 +199,11 @@ public class Map2D{
         int minY = center.getY() - height/2;
         int maxY = center.getY() + height/2;
         System.out.println("The search area is having the X-axis:(" + minX + ", " + maxX + ") and Y-axis: (" + minY + ", " + maxY + ")");
-        searchNearestPlace(root, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, 0);
+        searchAvailablePlace(root, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, 0);
         return listOfAvailablePlace;
     }
 
-    public void searchNearestPlace(Node curNode, int minX, int maxX, int minY, int maxY, String type, int maxResults, ArrayQueue<Place> listOfAvailablePlace, int depth) {
+    public void searchAvailablePlace(Node curNode, int minX, int maxX, int minY, int maxY, String type, int maxResults, ArrayQueue<Place> listOfAvailablePlace, int depth) {
         if(curNode == null || listOfAvailablePlace.size() >= maxResults){
             return;
         }
@@ -286,24 +225,24 @@ public class Map2D{
         // Determine whether to go left or right in the tree
         if (useX) {
             if (x >= minX && curNode.left != null) {
-                searchNearestPlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+                searchAvailablePlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
             }
             if (x <= maxX && curNode.right != null) {
-                searchNearestPlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+                searchAvailablePlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
             }
         } else {
             if (y >= minY && curNode.left != null) {
-                searchNearestPlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+                searchAvailablePlace(curNode.left, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
             }
             if (y <= maxY && curNode.right != null) {
-                searchNearestPlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
+                searchAvailablePlace(curNode.right, minX, maxX, minY, maxY, type, maxResults, listOfAvailablePlace, depth + 1);
             }
         }
     }
     
         // // Method to save all places to a file
     public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("place.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("D:\\DSA_github\\COSC2658_Project1\\src\\Nhan_\\places.txt"))) {
             saveNodeToFile(root, writer);
         } catch (IOException e) {
             System.err.println("Error saving to file: " + e.getMessage());

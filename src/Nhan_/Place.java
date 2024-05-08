@@ -17,6 +17,10 @@ public class Place {
         return services;
     }
 
+    public String serviceString() {
+        return String.join(", ", services);
+    }
+
     @Override
     public String toString() {
         return "Place at (" + position.getX() + ", " + position.getY() + ") offering " + servicesToString();
@@ -49,32 +53,7 @@ class Node{
     public int getHeight() {
         return height;
     }
-        // update and return the updated height
-    public int updateHeight() {
-        int leftHeight = 0;
-        if (left != null) {
-            leftHeight = left.getHeight();
-        }
-        int rightHeight = 0;
-        if (right != null) {
-            rightHeight = right.getHeight();
-        }
-        height = Math.max(leftHeight, rightHeight) + 1;
-        return height;
-    }
-
-    public int getBalanceFactor() {
-        int leftHeight = 0;
-        if (left != null) {
-            leftHeight = left.getHeight();
-        }
-        int rightHeight = 0;
-        if (right != null) {
-            rightHeight = right.getHeight();
-        }
-        return rightHeight - leftHeight;
-    }
-    public Node getLeft() {
+     public Node getLeft() {
         return left;
     }
     public Node getRight() {
