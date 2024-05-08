@@ -59,8 +59,6 @@ public class Map2D{
         }
         return null;
     }
-
-
     public void editPlace(Position position, String[] services){
         Node node = findNode(position);
         if(node != null){
