@@ -5,68 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
-        
-        // Map2D map = new Map2D();
-        // map.add(new Place("4", "Place 4", new Position(4, 4), new String[] { "School", "Restaurant" }));
-        // map.add(new Place("1", "Place 1", new Position(1, 1), new String[] { "Restaurant", "School" }));
-        // map.add(new Place("2", "Place 2", new Position(2, 2), new String[] { "Park", "Mall" }));
-        // map.add(new Place("3", "Place 3", new Position(3, 3), new String[] { "Restaurant", "Park" }));
-        // map.add(new Place("5", "Place 5", new Position(5, 5), new String[] { "Mall", "Park" }));
-        // map.add(new Place("6", "Place 6", new Position(6, 6), new String[] { "Restaurant", "School" }));
-        // map.add(new Place("7", "Place 7", new Position(7, 7), new String[] { "Restaurant", "Mall" }));
-        // map.add(new Place("8", "Place 8", new Position(8, 5), new String[] { "Service 15", "Service 16" }));
-        // map.add(new Place("9", "Place 9", new Position(7, 5), new String[] { "Service 17", "Service 18" }));
-        // map.add(new Place("10", "Place 10", new Position(6, 5), new String[] { "Service 19", "Service 20" }));
-        // map.add(new Place("11", "Place 11", new Position(5, 5), new String[] { "Service 21", "Service 22" }));
-        // map.add(new Place("12", "Place 12", new Position(4, 5), new String[] { "Service 23", "Service 24" }));
-        // map.add(new Place("13", "Place 13", new Position(3, 5), new String[] { "Service 25", "Service 26" }));
-        // map.add(new Place("14", "Place 14", new Position(2, 5), new String[] { "Service 27", "Service 28" }));
-        
-        // // Print tree
-        // System.out.println("------Print Tree------");
-        // map.printTree();
-
-        // // Find node 
-        // System.out.println("\n\n------Find Node------");
-        // System.out.println(map.findNode(new Position(5, 5)).place.toString());
-
-        // // Check the tree is balanced or not
-        // System.out.println("\n\n------Check Balance------");
-        // if(map.isTreeBalanced()) System.out.println("The tree is balanced");
-        // else System.out.println("The tree is not balanced");
-
-        // // Check the tree is BST or not
-        // // Edit place
-        // System.out.println("\n\n------Edit Place------");
-        // map.editPlace(new Position(6, 6), new String[]{"Service 15", "Service 16"});
-        // System.out.println(map.findNode(new Position(6, 6)).place.toString());
-
-        // // Remove place
-        // System.out.println("\n\n------Remove Place------");
-        // map.remove(new Position(6, 6));
-        // map.printTree();
-        
-        // // Check the tree is balanced or not
-        // System.out.println("\n\n------Check Balance------");
-        // if(map.isTreeBalanced()) System.out.println("The tree is balanced");
-        // else System.out.println("The tree is not balanced");
-
-        // // Search Function
-        // System.out.println("\n\n------Find Place------");
-        // ArrayQueue<Place> places = map.search(new Position(5, 5), 10, 10, "Restaurant");
-        // System.out.println("Places found: " + places.size());
-        
-        // while (!places.isEmpty()) {
-        //     System.out.println(places.peekFront());
-        //     places.deQueue();
-        // }
-
-        // String file_name = "C:\\Users\\ASUS\\Desktop\\DSA_github\\COSC2658_Project1\\src\\Nhan_\\point.txt";
-        // PlaceManager.loadPlacesFromFile(map, file_name);
-
-        // Print tree
-        // System.out.println("------Print Tree------");
-        // map.printTree();
 
         Map2D map = new Map2D();
         readPlacesFromDataFile(map);
@@ -139,11 +77,15 @@ public class Main {
         int y = scanner.nextInt();
         scanner.nextLine(); // Flush the scanner
         Position curPosition = new Position(x, y);
-        Place place = map.findNode(curPosition).place;
-        if (place == null) {
+        Place place;
+        
+        if(map.findNode(curPosition) == null){
             System.out.println("No place found at the specified coordinates.");
             return;
+        } else {
+           place = map.findNode(curPosition).place;
         }
+     
         System.out.println("Current services: " + place.serviceString());
         System.out.print("Enter new services (comma-separated): ");
         String[] newServices = new String[] {};

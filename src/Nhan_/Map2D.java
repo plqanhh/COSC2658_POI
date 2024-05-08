@@ -136,22 +136,6 @@ public class Map2D{
             parent.setRight(null);
         }
     }
-    private void transplant(Node u, Node v) {
-        if (u.parent == null) {
-            // u is the root of the tree
-            root = v;
-        } else if (u == u.parent.left) {
-            // u is the left child
-            u.parent.left = v;
-        } else {
-            // u is the right child
-            u.parent.right = v;
-        }
-        if (v != null) {
-            // Update the parent of v
-            v.parent = u.parent;
-        }
-    }
     // Helper method to remove a node with one child
     private void removeNodeWithOneChild(Node node) {
         Node child = (node.getLeft() != null) ? node.getLeft() : node.getRight();
