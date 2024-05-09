@@ -5,13 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
-
+        // Create a new map
         Map2D map = new Map2D();
         readPlacesFromDataFile(map);
-        System.out.println( map.getPlacesList().size());
-    
+        // Create a scanner to read user input
         Scanner scanner = new Scanner(System.in);
-        
+        // Main menu loop
         while (true) {
             System.out.println("\nAvailable Operations:");
             System.out.println("1. Add a new place");
@@ -47,21 +46,37 @@ public class Main {
         }
     }
     private static void addNewPlace(Scanner scanner, Map2D map) {
-        System.out.print("Enter X coordinate: ");
+        // Get user input for the new place
+        System.out.print("Enter X coordinate (0-10,000,000): ");
         int x = scanner.nextInt();
-        System.out.print("Enter Y coordinate: ");
-        int y = scanner.nextInt();
-        scanner.nextLine(); // Flush the scanner
-        System.out.print("Enter services (comma-separated, e.g., ATM, Cafe): ");
-        String servicesInput = scanner.nextLine().toUpperCase();
-        String[] services = new String[] {};
-        if (!servicesInput.isEmpty()) {
-            services = servicesInput.split(",");
+        while(x < 0 || x > 10000000){
+            System.out.println("Invalid X coordinate. Please enter a valid X coordinate: ");
+            x = scanner.nextInt();
         }
+        System.out.print("Enter Y coordinate (0-10,000,000): ");
+        int y = scanner.nextInt();
+        while(y < 0 || y > 10000000){
+            System.out.println("Invalid Y coordinate. Please enter a valid Y coordinate: ");
+            y = scanner.nextInt();
+        }
+        scanner.nextLine(); // Flush the scanner
+        System.out.print("Enter services (comma-separated, e.g., ATM, GYM): ");
+        String servicesInput = scanner.nextLine().toUpperCase();
+        while(servicesInput.isEmpty()){
+            System.out.println("Invalid services. Please enter a valid service type.");
+            servicesInput = scanner.nextLine().toUpperCase();
+        }
+        while(!ServiceType.isValid(servicesInput)){
+            System.out.println("Invalid service type. Please enter a valid service type.");
+            servicesInput = scanner.nextLine().toUpperCase();
+        }
+        String[] services = servicesInput.split(" ");
+        System.out.println("Adding new place...");
         Position position = new Position(x, y);
         Place newPlace = new Place(position, services);
         //Start time
         long startTime = System.nanoTime();
+        // Call to add the new place
         if(map.add(newPlace) == null){
             System.out.println("A place already exists at the specified coordinates.");
         } else {
@@ -70,25 +85,35 @@ public class Main {
         //End time
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
+        // Print the time taken to add the place
         System.out.println("Time to add a new place: " + duration + " nanoseconds");
     }
 
     private static void editPlace(Scanner scanner, Map2D map) {
-        System.out.print("Enter X coordinate of the place to edit: ");
+        // Get user input for the place to edit
+        System.out.print("Enter X coordinate of the place to edit (0-10,000,000): ");
         int x = scanner.nextInt();
-        System.out.print("Enter Y coordinate of the place to edit: ");
+        while(x < 0 || x > 10000000){
+            System.out.println("Invalid X coordinate. Please enter a valid X coordinate: ");
+            x = scanner.nextInt();
+        }
+        System.out.print("Enter Y coordinate of the place to edit (0-10,000,000): ");
         int y = scanner.nextInt();
+        while(y < 0 || y > 10000000){
+            System.out.println("Invalid Y coordinate. Please enter a valid Y coordinate: ");
+            y = scanner.nextInt();
+        }
         scanner.nextLine(); // Flush the scanner
+        // Find the place to edit
         Position curPosition = new Position(x, y);
         Place place;
-
         if(map.findNode(curPosition) == null){
             System.out.println("No place found at the specified coordinates.");
             return;
         } else {
            place = map.findNode(curPosition).place;
         }
-     
+        
         System.out.println("Current services: " + place.serviceString());
         System.out.print("Enter new services (comma-separated): ");
         String[] newServices = new String[] {};
@@ -96,6 +121,10 @@ public class Main {
         String[] inputServices = scanner.nextLine().toUpperCase().split(",");
 
         for(String service : inputServices){
+            if(!ServiceType.isValid(service)){
+                System.out.println("Invalid service type. Please enter a valid service type.");
+                return;
+            }
             newServices = Arrays.copyOf(newServices, newServices.length + 1);
             newServices[newServices.length - 1] = service;
         }
@@ -110,23 +139,26 @@ public class Main {
     }
 
     private static void searchPlaces(Scanner scanner, Map2D map) {
+        // Get user input for the search boundary
         System.out.print("Enter the current X coordinate of your searching place: ");
         int x = scanner.nextInt();
         System.out.print("Enter the current Y coordinate of your searching place: ");
         int y = scanner.nextInt();
-        System.out.print("Enter the width of the search rectangle boundary  (Min: 10,000 and Max: 10,000,000,000): ");
+        // Get user input for the search boundary
+        System.out.print("Enter the width of the search rectangle boundary  (Min: 100 and Max: 100,000): ");
         int width = scanner.nextInt();
-        // while (width < 10000 || width > 1000000000) {
-        //     System.out.println("Invalid width. Please enter a valid width: ");
-        //     width = scanner.nextInt();
-        // }
-        System.out.print("Enter the height of the search rectangle boundary (Min: 10,000 and Max: 10,000,000,000): ");
+        while (width < 100 || width > 100000) {
+            System.out.println("Invalid width. Please enter a valid width: ");
+            width = scanner.nextInt();
+        }
+        System.out.print("Enter the height of the search rectangle boundary (Min: 100 and Max: 100,000): ");
         int height = scanner.nextInt();
-        // while (height < 10000 || height > 1000000000) {
-        //     System.out.println("Invalid height. Please enter a valid height: ");
-        //     height = scanner.nextInt();
-        // }
+        while (height < 100 || height > 100000) {
+            System.out.println("Invalid height. Please enter a valid height: ");
+            height = scanner.nextInt();
+        }
         scanner.nextLine(); // Flush the scanner
+
         System.out.print("Enter the service type to search for: ");
         String serviceType = scanner.nextLine();
         while(serviceType.isEmpty()){
@@ -136,6 +168,7 @@ public class Main {
         if(!serviceType.equals(serviceType.toUpperCase())){
             serviceType = serviceType.toUpperCase();
         }
+        // Check if the service type is valid
         while(!ServiceType.isValid(serviceType)){
             System.out.println("Invalid service type. Please enter a valid service type.");
             serviceType = scanner.nextLine();
@@ -147,16 +180,18 @@ public class Main {
         //End time
         long endTime = System.nanoTime();
         long duration = (endTime - startTime);
-        ArrayList<Place> placesList = map.getPlacesList();
-        int minX = x - width/2;
-        int maxX = x + width/2;
-        int minY = y - height/2;
-        int maxY = y + height/2;
-        for(int i = 0; i < placesList.size(); i++){
-            if(placesList.get(i).getPosition().getX() >= minX && placesList.get(i).getPosition().getX() <= maxX && placesList.get(i).getPosition().getY() >= minY && placesList.get(i).getPosition().getY() <= maxY){
-                System.out.println(placesList.get(i).toString());
-            }
-        }
+
+        // Print the all places found within the search boundary for verification
+        // ArrayList<Place> placesList = map.getPlacesList();
+        // int minX = x - width/2;
+        // int maxX = x + width/2;
+        // int minY = y - height/2;
+        // int maxY = y + height/2;
+        // for(int i = 0; i < placesList.size(); i++){
+        //     if(placesList.get(i).getPosition().getX() >= minX && placesList.get(i).getPosition().getX() <= maxX && placesList.get(i).getPosition().getY() >= minY && placesList.get(i).getPosition().getY() <= maxY){
+        //         System.out.println(placesList.get(i).toString());
+        //     }
+        // }
         System.out.println("Time to search for places: " + duration + " nanoseconds");
         System.out.println("Places found: " + places.size());
         System.out.println("Found places within the specified rectangle:");
@@ -167,6 +202,7 @@ public class Main {
     }
     
     private static void removePlace(Scanner scanner, Map2D map) {
+        // Get user input for the place to remove
         System.out.print("Enter X coordinate of the place to remove: ");
         int x = scanner.nextInt();
         System.out.print("Enter Y coordinate of the place to remove: ");
@@ -187,7 +223,7 @@ public class Main {
         }
     }
     private static void readPlacesFromDataFile(Map2D map){
-        String filename = "D:\\DSA_github\\COSC2658_Project1\\src\\Nhan_\\places.txt";
+        String filename = "src\\Nhan_\\places.txt";
         int count = 0;
         long startTime = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
